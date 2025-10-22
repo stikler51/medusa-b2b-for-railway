@@ -18,6 +18,22 @@ module.exports = defineConfig({
     },
   },
   modules: {
+    [Modules.NOTIFICATION]: {
+      resolve: "@medusajs/medusa/notification",
+      options: {
+        providers: [
+          {
+            resolve: "./src/modules/resend",
+            id: "resend",
+            options: {
+              channels: ["email"],
+              api_key: process.env.RESEND_API_KEY,
+              from: process.env.RESEND_FROM_EMAIL,
+            },
+          },
+        ],
+      },
+    },
     [COMPANY_MODULE]: {
       resolve: "./modules/company",
     },
@@ -31,54 +47,62 @@ module.exports = defineConfig({
       resolve: "@medusajs/medusa/file",
       options: {
         providers: [
-          ...(process.env.MINIO_ENDPOINT && process.env.MINIO_ACCESS_KEY && process.env.MINIO_SECRET_KEY ? [{
-            resolve: './src/modules/minio-file',
-            id: 'minio',
-            options: {
-              endPoint: process.env.MINIO_ENDPOINT,
-              accessKey: process.env.MINIO_ACCESS_KEY,
-              secretKey: process.env.MINIO_SECRET_KEY,
-              bucket: process.env.MINIO_BUCKET // Optional, default: medusa-media
-            }
-          }] : [{
-            resolve: "@medusajs/medusa/file-local",
-            id: "local",
-            options: {
-              upload_dir: "static",
-              backend_url: `${process.env.BACKEND_URL || "http://localhost:9000"}/static`,
-            },
-          }]),
+          ...(process.env.MINIO_ENDPOINT && process.env.MINIO_ACCESS_KEY && process.env.MINIO_SECRET_KEY
+            ? [
+                {
+                  resolve: "./src/modules/minio-file",
+                  id: "minio",
+                  options: {
+                    endPoint: process.env.MINIO_ENDPOINT,
+                    accessKey: process.env.MINIO_ACCESS_KEY,
+                    secretKey: process.env.MINIO_SECRET_KEY,
+                    bucket: process.env.MINIO_BUCKET, // Optional, default: medusa-media
+                  },
+                },
+              ]
+            : [
+                {
+                  resolve: "@medusajs/medusa/file-local",
+                  id: "local",
+                  options: {
+                    upload_dir: "static",
+                    backend_url: `${process.env.BACKEND_URL || "http://localhost:9000"}/static`,
+                  },
+                },
+              ]),
         ],
       },
     },
-    ...(process.env.REDIS_URL ? {
-      [Modules.EVENT_BUS]: {
-        resolve: "@medusajs/medusa/event-bus-redis",
-        options: {
-          redisUrl: process.env.REDIS_URL,
-        },
-      },
-      [Modules.CACHE]: {
-        resolve: "@medusajs/medusa/cache-redis",
-        options: {
-          redisUrl: process.env.REDIS_URL,
-        },
-      },
-      [Modules.WORKFLOW_ENGINE]: {
-        resolve: "@medusajs/medusa/workflow-engine-redis",
-        options: {
-          redis: {
-            url: process.env.REDIS_URL,
+    ...(process.env.REDIS_URL
+      ? {
+          [Modules.EVENT_BUS]: {
+            resolve: "@medusajs/medusa/event-bus-redis",
+            options: {
+              redisUrl: process.env.REDIS_URL,
+            },
           },
-        },
-      },
-    } : {
-      [Modules.CACHE]: {
-        resolve: "@medusajs/medusa/cache-inmemory",
-      },
-      [Modules.WORKFLOW_ENGINE]: {
-        resolve: "@medusajs/medusa/workflow-engine-inmemory",
-      },
-    }),
+          [Modules.CACHE]: {
+            resolve: "@medusajs/medusa/cache-redis",
+            options: {
+              redisUrl: process.env.REDIS_URL,
+            },
+          },
+          [Modules.WORKFLOW_ENGINE]: {
+            resolve: "@medusajs/medusa/workflow-engine-redis",
+            options: {
+              redis: {
+                url: process.env.REDIS_URL,
+              },
+            },
+          },
+        }
+      : {
+          [Modules.CACHE]: {
+            resolve: "@medusajs/medusa/cache-inmemory",
+          },
+          [Modules.WORKFLOW_ENGINE]: {
+            resolve: "@medusajs/medusa/workflow-engine-inmemory",
+          },
+        }),
   },
 });
