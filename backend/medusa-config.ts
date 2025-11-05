@@ -104,11 +104,5 @@ module.exports = defineConfig({
             resolve: "@medusajs/medusa/workflow-engine-inmemory",
           },
         }),
-  },
-  plugins: [
-    {
-      resolve: "@rsc-labs/medusa-documents-v2",
-      options: {},
-    },
-  ],
+  }
 });
