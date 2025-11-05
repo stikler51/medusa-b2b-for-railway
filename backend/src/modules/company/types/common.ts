@@ -7,7 +7,7 @@ export interface CompanyDTO {
   email: string;
   address: string | null;
   city: string | null;
-  state: string | null;
+  // state: string | null;
   zip: string | null;
   country: string | null;
   logo_url: string | null;
@@ -16,6 +16,9 @@ export interface CompanyDTO {
   customer_group?: CustomerGroupDTO;
   created_at: Date;
   updated_at: Date;
+  vat_number: string | null;
+  okpo: string | null;
+  payment_details: string | null;
 }
 
 export interface EmployeeDTO extends CustomerDTO {

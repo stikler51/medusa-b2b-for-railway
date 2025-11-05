@@ -1,4 +1,4 @@
-import { Button, Drawer, Input, Label, Select, Text } from "@medusajs/ui";
+import { Button, Drawer, Input, Label, Select, Text, Textarea } from "@medusajs/ui";
 import { AdminUpdateCompany } from "../../../../types";
 import { useState } from "react";
 import { useRegions } from "../../../hooks/api";
@@ -14,16 +14,14 @@ export function CompanyForm({
   loading: boolean;
   error: Error | null;
 }) {
-  const [formData, setFormData] = useState<AdminUpdateCompany>(
-    company || ({} as AdminUpdateCompany)
-  );
+  const [formData, setFormData] = useState<AdminUpdateCompany>(company || ({} as AdminUpdateCompany));
 
   const { regions, isPending: regionsLoading } = useRegions();
 
   const currencyCodes = regions?.map((region) => region.currency_code);
   const countries = regions?.flatMap((region) => region.countries);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -40,21 +38,9 @@ export function CompanyForm({
       <Drawer.Body className="p-4">
         <div className="flex flex-col gap-2">
           <Label size="xsmall">Company Name</Label>
-          <Input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Medusa"
-          />
+          <Input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Medusa" />
           <Label size="xsmall">Company Phone</Label>
-          <Input
-            type="text"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            placeholder="1234567890"
-          />
+          <Input type="text" name="phone" value={formData?.phone} onChange={handleChange} placeholder="1234567890" />
           <Label size="xsmall">Company Email</Label>
           <Input
             type="email"
@@ -72,29 +58,9 @@ export function CompanyForm({
             placeholder="1234 Main St"
           />
           <Label size="xsmall">Company City</Label>
-          <Input
-            type="text"
-            name="city"
-            value={formData.city || ""}
-            onChange={handleChange}
-            placeholder="New York"
-          />
-          <Label size="xsmall">Company State</Label>
-          <Input
-            type="text"
-            name="state"
-            value={formData.state || ""}
-            onChange={handleChange}
-            placeholder="NY"
-          />
+          <Input type="text" name="city" value={formData.city || ""} onChange={handleChange} placeholder="New York" />
           <Label size="xsmall">Company Zip</Label>
-          <Input
-            type="text"
-            name="zip"
-            value={formData.zip || ""}
-            onChange={handleChange}
-            placeholder="10001"
-          />
+          <Input type="text" name="zip" value={formData.zip || ""} onChange={handleChange} placeholder="10001" />
           <div className="flex gap-4 w-full">
             <div className="flex flex-col gap-2 w-1/2">
               <Label size="xsmall">Company Country</Label>
@@ -109,10 +75,7 @@ export function CompanyForm({
                 </Select.Trigger>
                 <Select.Content className="z-50">
                   {countries?.map((country) => (
-                    <Select.Item
-                      key={country?.iso_2 || ""}
-                      value={country?.iso_2 || ""}
-                    >
+                    <Select.Item key={country?.iso_2 || ""} value={country?.iso_2 || ""}>
                       {country?.name}
                     </Select.Item>
                   ))}
@@ -152,23 +115,33 @@ export function CompanyForm({
             onChange={handleChange}
             placeholder="https://example.com/logo.png"
           />
+          <Label size="xsmall">УНП</Label>
+          <Input
+            type="text"
+            name="vat_number"
+            value={formData.vat_number || ""}
+            onChange={handleChange}
+            placeholder="123456789"
+          />
+          <Label size="xsmall">ОКПО</Label>
+          <Input type="text" name="okpo" value={formData.okpo || ""} onChange={handleChange} placeholder="12345678" />
+          <Label size="xsmall">Реквизиты</Label>
+          <Textarea
+            name="payment_details"
+            value={formData.payment_details || ""}
+            onChange={handleChange}
+            placeholder="Р/счет: BY03ALFA30122B85870020270000 в BYN в ЗАО 'Альфа-Банк', БИК: ALFABY2X, г. Минск, ул. Сурганова, д. 43."
+          />
         </div>
       </Drawer.Body>
       <Drawer.Footer>
         <Drawer.Close asChild>
           <Button variant="secondary">Cancel</Button>
         </Drawer.Close>
-        <Button
-          isLoading={loading}
-          onClick={async () => await handleSubmit(formData)}
-        >
+        <Button isLoading={loading} onClick={async () => await handleSubmit(formData)}>
           Save
         </Button>
-        {error && (
-          <Text className="txt-compact-small text-ui-fg-warning">
-            Error: {error?.message}
-          </Text>
-        )}
+        {error && <Text className="txt-compact-small text-ui-fg-warning">Error: {error?.message}</Text>}
       </Drawer.Footer>
     </form>
   );

@@ -7,9 +7,7 @@ import { ModuleCompanySpendingLimitResetFrequency } from "./module";
 
 export interface CompanyFilterParams extends FindParams, ModuleCompanyFilters {}
 
-export interface EmployeeFilterParams
-  extends FindParams,
-    ModuleEmployeeFilters {}
+export interface EmployeeFilterParams extends FindParams, ModuleEmployeeFilters {}
 
 /* Admin */
 
@@ -28,11 +26,14 @@ export type AdminCreateCompany = {
   email: string;
   address: string | null;
   city: string | null;
-  state: string | null;
+  // state: string | null;
   zip: string | null;
   country: string | null;
   logo_url: string | null;
   currency_code: string | null;
+  vat_number: string | null;
+  okpo: string | null;
+  payment_details: string | null;
 };
 
 export type AdminUpdateCompany = Partial<AdminCreateCompany>;

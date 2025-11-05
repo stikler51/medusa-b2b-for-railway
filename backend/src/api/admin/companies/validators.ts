@@ -18,6 +18,9 @@ export const AdminCreateCompany = z
     zip: z.string().optional(),
     country: z.string().optional(),
     logo_url: z.string().optional(),
+    vat_number: z.string().optional().nullable(), // УНП
+    okpo: z.string().optional().nullable(), // ОКПО
+    payment_details: z.string().optional().nullable(),
   })
   .strict();
 
@@ -34,24 +37,21 @@ export const AdminUpdateCompany = z
     zip: z.string().optional(),
     country: z.string().optional(),
     logo_url: z.string().optional().nullable(),
+    vat_number: z.string().optional().nullable(), // УНП
+    okpo: z.string().optional().nullable(), // ОКПО
+    payment_details: z.string().optional().nullable(),
   })
   .strict();
 
-export type AdminGetCustomerGroupParamsType = z.infer<
-  typeof AdminGetCustomerGroupParams
->;
+export type AdminGetCustomerGroupParamsType = z.infer<typeof AdminGetCustomerGroupParams>;
 export const AdminGetCustomerGroupParams = createSelectParams();
 
-export type AdminAddCompanyToCustomerGroupType = z.infer<
-  typeof AdminAddCompanyToCustomerGroup
->;
+export type AdminAddCompanyToCustomerGroupType = z.infer<typeof AdminAddCompanyToCustomerGroup>;
 export const AdminAddCompanyToCustomerGroup = z.object({
   group_id: z.string(),
 });
 
-export type AdminRemoveCompanyFromCustomerGroupType = z.infer<
-  typeof AdminRemoveCompanyFromCustomerGroup
->;
+export type AdminRemoveCompanyFromCustomerGroupType = z.infer<typeof AdminRemoveCompanyFromCustomerGroup>;
 export const AdminRemoveCompanyFromCustomerGroup = z.object({
   group_id: z.string(),
 });
@@ -92,14 +92,10 @@ export const AdminUpdateEmployee = z
   .strict();
 
 /* Approval Settings Validators */
-export type AdminGetApprovalSettingsParamsType = z.infer<
-  typeof AdminGetApprovalSettingsParams
->;
+export type AdminGetApprovalSettingsParamsType = z.infer<typeof AdminGetApprovalSettingsParams>;
 export const AdminGetApprovalSettingsParams = createSelectParams();
 
-export type AdminCreateApprovalSettingsType = z.infer<
-  typeof AdminCreateApprovalSettings
->;
+export type AdminCreateApprovalSettingsType = z.infer<typeof AdminCreateApprovalSettings>;
 export const AdminCreateApprovalSettings = z
   .object({
     company_id: z.string(),
@@ -108,9 +104,7 @@ export const AdminCreateApprovalSettings = z
   })
   .strict();
 
-export type AdminUpdateApprovalSettingsType = z.infer<
-  typeof AdminUpdateApprovalSettings
->;
+export type AdminUpdateApprovalSettingsType = z.infer<typeof AdminUpdateApprovalSettings>;
 export const AdminUpdateApprovalSettings = z
   .object({
     id: z.string(),
@@ -119,9 +113,7 @@ export const AdminUpdateApprovalSettings = z
   })
   .strict();
 
-export type AdminDeleteApprovalSettingsType = z.infer<
-  typeof AdminDeleteApprovalSettings
->;
+export type AdminDeleteApprovalSettingsType = z.infer<typeof AdminDeleteApprovalSettings>;
 export const AdminDeleteApprovalSettings = z.object({
   ids: z.array(z.string()),
 });

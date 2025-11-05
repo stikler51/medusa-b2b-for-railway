@@ -35,6 +35,10 @@ const nextConfig = {
       },
       {
         protocol: "https",
+        hostname: "bucket-production-ca19d.up.railway.app",
+      },
+      {
+        protocol: "https",
         hostname: "github.com",
       },
     ],

@@ -24,15 +24,11 @@ export function CompanyCreateDrawer() {
           Create
         </Button>
       </Drawer.Trigger>
-      <Drawer.Content>
+      <Drawer.Content className="overflow-y-scroll">
         <Drawer.Header>
           <Drawer.Title>Create Company</Drawer.Title>
         </Drawer.Header>
-        <CompanyForm
-          handleSubmit={handleSubmit}
-          loading={isPending}
-          error={error}
-        />
+        <CompanyForm handleSubmit={handleSubmit} loading={isPending} error={error} />
       </Drawer.Content>
     </Drawer>
   );

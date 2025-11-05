@@ -12,7 +12,7 @@ export const Company = model.define("company", {
   phone: model.text().nullable(),
   address: model.text().nullable(),
   city: model.text().nullable(),
-  state: model.text().nullable(),
+  // state: model.text().nullable(),
   zip: model.text().nullable(),
   country: model.text().nullable(),
   logo_url: model.text().nullable(),
@@ -21,4 +21,7 @@ export const Company = model.define("company", {
     .enum(["never", "daily", "weekly", "monthly", "yearly"])
     .default("monthly"),
   employees: model.hasMany(() => Employee),
+  vat_number: model.text().nullable(), // УНП
+  okpo: model.text().nullable(), // ОКПО
+  payment_details: model.text().nullable(),
 });

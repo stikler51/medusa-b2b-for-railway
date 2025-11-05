@@ -19,7 +19,7 @@ export type ModuleCompany = {
   email: string;
   address: string | null;
   city: string | null;
-  state: string | null;
+  // state: string | null;
   zip: string | null;
   country: string | null;
   logo_url: string | null;
@@ -29,6 +29,9 @@ export type ModuleCompany = {
   updated_at: Date;
   customer_group: CustomerGroupDTO;
   approval_settings: ModuleApprovalSettings;
+  vat_number: string | null;
+  okpo: string | null;
+  payment_details: string | null;
 };
 
 export type ModuleCreateCompany = {
@@ -37,7 +40,7 @@ export type ModuleCreateCompany = {
   email: string;
   address: string | null;
   city: string | null;
-  state: string | null;
+  // state: string | null;
   zip: string | null;
   country: string | null;
   logo_url: string | null;

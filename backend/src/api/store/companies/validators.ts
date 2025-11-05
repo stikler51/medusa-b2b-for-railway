@@ -19,10 +19,10 @@ export const StoreCreateCompany = z
     zip: z.string().optional().nullable(),
     country: z.string().optional().nullable(),
     logo_url: z.string().optional().nullable(),
-    spending_limit_reset_frequency: z
-      .enum(["never", "daily", "weekly", "monthly", "yearly"])
-      .optional()
-      .nullable(),
+    spending_limit_reset_frequency: z.enum(["never", "daily", "weekly", "monthly", "yearly"]).optional().nullable(),
+    vat_number: z.string().optional().nullable(), // УНП
+    okpo: z.string().optional().nullable(), // ОКПО
+    payment_details: z.string().optional().nullable(),
   })
   .strict();
 
@@ -39,10 +39,10 @@ export const StoreUpdateCompany = z
     zip: z.string().optional().nullable(),
     country: z.string().optional().nullable(),
     logo_url: z.string().optional().nullable(),
-    spending_limit_reset_frequency: z
-      .enum(["never", "daily", "weekly", "monthly", "yearly"])
-      .optional()
-      .nullable(),
+    spending_limit_reset_frequency: z.enum(["never", "daily", "weekly", "monthly", "yearly"]).optional().nullable(),
+    vat_number: z.string().optional().nullable(), // УНП
+    okpo: z.string().optional().nullable(), // ОКПО
+    payment_details: z.string().optional().nullable(),
   })
   .strict();
 
@@ -74,14 +74,10 @@ export const StoreUpdateEmployee = z
   .strict();
 
 /* Approval Settings Validators */
-export type StoreGetApprovalSettingsParamsType = z.infer<
-  typeof StoreGetApprovalSettingsParams
->;
+export type StoreGetApprovalSettingsParamsType = z.infer<typeof StoreGetApprovalSettingsParams>;
 export const StoreGetApprovalSettingsParams = createSelectParams();
 
-export type StoreUpdateApprovalSettingsType = z.infer<
-  typeof StoreUpdateApprovalSettings
->;
+export type StoreUpdateApprovalSettingsType = z.infer<typeof StoreUpdateApprovalSettings>;
 export const StoreUpdateApprovalSettings = z
   .object({
     requires_admin_approval: z.boolean(),

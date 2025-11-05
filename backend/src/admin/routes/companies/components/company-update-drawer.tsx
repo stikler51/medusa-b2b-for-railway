@@ -14,23 +14,17 @@ export function CompanyUpdateDrawer({
 }) {
   const { mutateAsync, isPending, error } = useUpdateCompany(company.id);
 
-  const {
-    created_at,
-    updated_at,
-    id,
-    employees,
-    customer_group,
-    approval_settings,
-    ...currentData
-  } = company;
+  const { created_at, updated_at, id, employees, customer_group, approval_settings, ...currentData } = company;
 
   const handleSubmit = async (formData: AdminUpdateCompany) => {
     await mutateAsync(formData, {
       onSuccess: async () => {
+        console.log("SUCCESS");
         setOpen(false);
         toast.success(`Company ${formData.name} updated successfully`);
       },
       onError: (error) => {
+        console.log('ERROR', { error });
         toast.error("Failed to update company");
       },
     });
@@ -38,17 +32,12 @@ export function CompanyUpdateDrawer({
 
   return (
     <Drawer open={open} onOpenChange={setOpen}>
-      <Drawer.Content className="z-50">
+      <Drawer.Content className="z-50 overflow-y-scroll">
         <Drawer.Header>
           <Drawer.Title>Edit Company</Drawer.Title>
         </Drawer.Header>
 
-        <CompanyForm
-          handleSubmit={handleSubmit}
-          loading={isPending}
-          error={error}
-          company={currentData}
-        />
+        <CompanyForm handleSubmit={handleSubmit} loading={isPending} error={error} company={currentData} />
       </Drawer.Content>
     </Drawer>
   );
