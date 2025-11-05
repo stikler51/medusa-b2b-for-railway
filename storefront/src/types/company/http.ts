@@ -93,6 +93,9 @@ export type StoreUpdateCompany = {
   logo_url: string | null;
   currency_code: string;
   spending_limit_reset_frequency?: ModuleCompanySpendingLimitResetFrequency;
+  vat_number?: string | null;
+  okpo?: string | null;
+  payment_details?: string | null;
 };
 
 /* Employee */

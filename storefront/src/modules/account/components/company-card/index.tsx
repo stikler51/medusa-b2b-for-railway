@@ -55,7 +55,7 @@ const CompanyCard = ({
           className={clx(
             "grid grid-cols-2 gap-4 border-b border-neutral-200 overflow-hidden transition-all duration-300 ease-in-out ",
             {
-              "max-h-[422px] opacity-100 p-4": isEditing,
+              "max-h-[503px] opacity-100 p-4": isEditing,
               "max-h-0 opacity-0": !isEditing,
             }
           )}
@@ -122,17 +122,6 @@ const CompanyCard = ({
             />
           </div>
           <div className="flex flex-col gap-y-2">
-            <Text className="font-medium text-neutral-950">State</Text>
-            <Input
-              label="State"
-              name="state"
-              value={companyData.state || ""}
-              onChange={(e) =>
-                setCompanyData({ ...companyData, state: e.target.value })
-              }
-            />
-          </div>
-          <div className="flex flex-col gap-y-2">
             <Text className="font-medium text-neutral-950">Zip</Text>
             <Input
               label="Zip"
@@ -173,7 +162,7 @@ const CompanyCard = ({
             >
               {currenciesInRegions.map((currency) => (
                 <option key={currency} value={currency}>
-                  {currency.toUpperCase()} ({currencySymbolMap[currency]})
+                  {currency.toUpperCase()}
                 </option>
               ))}
             </Select>
@@ -202,6 +191,43 @@ const CompanyCard = ({
               )}
             </Select>
           </div>
+
+          <div className="flex flex-col gap-y-2">
+            <Text className="font-medium text-neutral-950">УНП</Text>
+            <Input
+              label="УНП"
+              name="vat_number"
+              value={companyData.vat_number || ""}
+              onChange={(e) =>
+                setCompanyData({ ...companyData, vat_number: e.target.value })
+              }
+            />
+          </div>
+          <div className="flex flex-col gap-y-2">
+            <Text className="font-medium text-neutral-950">ОКПО</Text>
+            <Input
+              label="ОКПО"
+              name="okpo"
+              value={companyData.okpo || ""}
+              onChange={(e) =>
+                setCompanyData({ ...companyData, okpo: e.target.value })
+              }
+            />
+          </div>
+          <div className="flex flex-col gap-y-2">
+            <Text className="font-medium text-neutral-950">Реквизиты</Text>
+            <Input
+              label="Реквизиты"
+              name="payment_details"
+              value={companyData.payment_details || ""}
+              onChange={(e) =>
+                setCompanyData({
+                  ...companyData,
+                  payment_details: e.target.value,
+                })
+              }
+            />
+          </div>
         </form>
         <div
           className={clx(
@@ -227,15 +253,13 @@ const CompanyCard = ({
           <div className="flex flex-col gap-y-2">
             <Text className="font-medium text-neutral-950">Address</Text>
             <Text className=" text-neutral-500">
-              {company.address}, {company.city}, {company.state}, {company.zip},{" "}
-              {company.country?.toUpperCase()}
+              {company.address}, {company.city}, {company.zip}
             </Text>
           </div>
           <div className="flex flex-col gap-y-2">
             <Text className="font-medium text-neutral-950">Currency</Text>
             <Text className=" text-neutral-500">
-              {company.currency_code?.toUpperCase()} (
-              {currencySymbolMap[company.currency_code!]})
+              {company.currency_code?.toUpperCase()}
             </Text>
           </div>
           <div className="flex flex-col gap-y-2">
@@ -246,6 +270,14 @@ const CompanyCard = ({
               {company.spending_limit_reset_frequency?.charAt(0).toUpperCase() +
                 company.spending_limit_reset_frequency?.slice(1)}
             </Text>
+          </div>
+          <div className="flex flex-col gap-y-2">
+            <Text className="font-medium text-neutral-950">УНП</Text>
+            <Text className=" text-neutral-500">{company.vat_number}</Text>
+          </div>
+          <div className="flex flex-col gap-y-2">
+            <Text className="font-medium text-neutral-950">ОКПО</Text>
+            <Text className=" text-neutral-500">{company.okpo}</Text>
           </div>
         </div>
 
