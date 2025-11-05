@@ -105,4 +105,10 @@ module.exports = defineConfig({
           },
         }),
   },
+  plugins: [
+    {
+      resolve: "@rsc-labs/medusa-documents-v2",
+      options: {},
+    },
+  ],
 });
