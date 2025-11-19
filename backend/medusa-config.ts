@@ -1,6 +1,7 @@
 import { QUOTE_MODULE } from "./src/modules/quote";
 import { APPROVAL_MODULE } from "./src/modules/approval";
 import { COMPANY_MODULE } from "./src/modules/company";
+import { INVOICE_MODULE } from "./src/modules/invoice-generator";
 import { loadEnv, defineConfig, Modules } from "@medusajs/framework/utils";
 
 loadEnv(process.env.NODE_ENV!, process.cwd());
@@ -42,6 +43,9 @@ module.exports = defineConfig({
     },
     [APPROVAL_MODULE]: {
       resolve: "./modules/approval",
+    },
+    [INVOICE_MODULE]: {
+      resolve: "./modules/invoice-generator",
     },
     [Modules.FILE]: {
       resolve: "@medusajs/medusa/file",
