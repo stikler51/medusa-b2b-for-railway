@@ -18,6 +18,9 @@ module.exports = defineConfig({
       cookieSecret: process.env.COOKIE_SECRET || "supersecret",
     },
   },
+  admin: {
+    backendUrl: process.env.RAILWAY_PUBLIC_DOMAIN_VALUE || "http://localhost:9000",
+  },
   modules: {
     [Modules.NOTIFICATION]: {
       resolve: "@medusajs/medusa/notification",
