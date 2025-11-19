@@ -30,3 +30,15 @@ execSync('pnpm i --prod --frozen-lockfile', {
   cwd: MEDUSA_SERVER_PATH,
   stdio: 'inherit'
 });
+
+// Copy fonts
+const fontsSrc = path.join(process.cwd(), 'src', 'modules', 'invoice-generator', 'fonts');
+const fontsDest = path.join(MEDUSA_SERVER_PATH, 'src', 'modules', 'invoice-generator', 'fonts');
+
+if (fs.existsSync(fontsSrc)) {
+  console.log('Copying fonts...');
+  fs.mkdirSync(path.dirname(fontsDest), { recursive: true });
+  fs.cpSync(fontsSrc, fontsDest, { recursive: true });
+} else {
+  console.warn(`Fonts directory not found at ${fontsSrc}`);
+}
