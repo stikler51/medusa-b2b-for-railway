@@ -2,8 +2,9 @@ import { MedusaService } from "@medusajs/framework/utils";
 import { InvoiceConfig } from "./models/invoice-config";
 import { Invoice, InvoiceStatus } from "./models/invoice";
 import PdfPrinter from "pdfmake";
-import { InferTypeOf, OrderDTO, OrderLineItemDTO } from "@medusajs/framework/types";
+import { InferTypeOf, OrderDTO, OrderLineItemDTO, CustomerDTO } from "@medusajs/framework/types";
 import axios from "axios";
+import { Company } from "../company/models/company";
 
 import path from "path";
 
@@ -18,8 +19,10 @@ const fonts = {
 
 const printer = new PdfPrinter(fonts);
 
+type CompanyDTO = InferTypeOf<typeof Company>;
+
 type GeneratePdfParams = {
-  order: OrderDTO;
+  order: OrderDTO & { company?: CompanyDTO; customer?: CustomerDTO };
   items: OrderLineItemDTO[];
 };
 
@@ -308,7 +311,7 @@ class InvoiceGeneratorService extends MedusaService({
                   margin: [0, 0, 0, 8],
                 },
                 {
-                  text: params.order?.customer?.company_name ?? `${params.order.customer.first_name || ""} ${params.order.customer.last_name || ""}`,
+                  text: params.order?.customer?.company_name ?? `${params.order.customer?.first_name || ""} ${params.order.customer?.last_name || ""}`,
                   style: "companyAddress",
                   margin: [0, 0, 0, 4],
                 },
@@ -318,17 +321,17 @@ class InvoiceGeneratorService extends MedusaService({
                   margin: [0, 0, 0, 4],
                 },
                 {
-                  text: `УНП: ${params.order.company.vat_number}`,
+                  text: `УНП: ${params.order?.company?.vat_number}`,
                   style: "companyAddress",
                   margin: [0, 0, 0, 4],
                 },
                 {
-                  text: `ОКПО: ${params.order.company.okpo}`,
+                  text: `ОКПО: ${params.order?.company?.okpo}`,
                   style: "companyAddress",
                   margin: [0, 0, 0, 16],
                 },
                 {
-                  text: params.order.company.payment_details,
+                  text: params.order?.company?.payment_details || "",
                   style: "companyAddress",
                   margin: [0, 0, 0, 4],
                 },
@@ -472,7 +475,7 @@ class InvoiceGeneratorService extends MedusaService({
                   margin: [0, 0, 0, 8],
                 },
                 {
-                  text: params.order?.customer?.company_name ?? `${params.order.customer.first_name || ""} ${params.order.customer.last_name || ""}`,
+                  text: params.order?.customer?.company_name ?? `${params.order.customer?.first_name || ""} ${params.order.customer?.last_name || ""}`,
                   style: "notesText",
                 },
                 {
