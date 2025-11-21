@@ -65,6 +65,9 @@ importers:
       resend:
         specifier: ^6.2.2
         version: 6.2.2(@react-email/render@1.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      transliteration:
+        specifier: ^2.3.5
+        version: 2.3.5
       zod:
         specifier: ^3.25.0
         version: 3.25.76
@@ -6825,6 +6828,11 @@ packages:
 
   tr46@0.0.3:
     resolution: {integrity: sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==}
+
+  transliteration@2.3.5:
+    resolution: {integrity: sha512-HAGI4Lq4Q9dZ3Utu2phaWgtm3vB6PkLUFqWAScg/UW+1eZ/Tg6Exo4oC0/3VUol/w4BlefLhUUSVBr/9/ZGQOw==}
+    engines: {node: '>=6.0.0'}
+    hasBin: true
 
   triple-beam@1.4.1:
     resolution: {integrity: sha512-aZbgViZrg1QNcG+LULa7nhZpJTZSLm/mXnHXnbAbjmN5aSa0y7V+wvv6+4WaBtpISJzThKy+PIPxc1Nq1EJ9mg==}
@@ -15855,6 +15863,10 @@ snapshots:
   toidentifier@1.0.1: {}
 
   tr46@0.0.3: {}
+
+  transliteration@2.3.5:
+    dependencies:
+      yargs: 17.7.2
 
   triple-beam@1.4.1: {}
 

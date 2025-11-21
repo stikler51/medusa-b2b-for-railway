@@ -41,6 +41,7 @@
     "pdfmake": "^0.2.20",
     "pg": "^8.13.0",
     "resend": "^6.2.2",
+    "transliteration": "^2.3.5",
     "zod": "4.1.12"
   },
   "devDependencies": {
