@@ -10,6 +10,7 @@ import { HttpTypes } from "@medusajs/types"
 import { Container, Text } from "@medusajs/ui"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
+import { t } from "@/lib/util/translate"
 
 export default function CategoryTemplate({
   categories,
@@ -51,14 +52,14 @@ export default function CategoryTemplate({
             {currentCategory.products?.length === 0 ? (
               <Container className="flex flex-col gap-2 justify-center text-center items-center text-sm text-neutral-500">
                 <Text className="font-medium">
-                  No products found for this category.
+                  {t("categories.noProductsFound")}
                 </Text>
                 <LocalizedClientLink
                   href="/store"
                   className="flex gap-2 items-center"
                 >
                   <Button variant="secondary">
-                    Back to all products
+                    {t("categories.backToAllProducts")}
                     <ArrowUturnLeft className="w-4 h-4" />
                   </Button>
                 </LocalizedClientLink>

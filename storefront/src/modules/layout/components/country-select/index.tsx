@@ -8,6 +8,7 @@ import { StateType } from "@/lib/hooks/use-toggle-state"
 import { useParams, usePathname } from "next/navigation"
 import { updateRegion } from "@/lib/data/cart"
 import { HttpTypes } from "@medusajs/types"
+import { t } from "@/lib/util/translate"
 
 type CountryOption = {
   country: string
@@ -69,7 +70,7 @@ const CountrySelect = ({ toggleState, regions }: CountrySelectProps) => {
       >
         <Listbox.Button className="py-1 w-full">
           <div className="txt-compact-small flex items-start gap-x-2">
-            <span>Shipping to:</span>
+            <span>{t("nav.shippingTo")}</span>
             {current && (
               <span className="txt-compact-small flex items-center gap-x-2">
                 <ReactCountryFlag

@@ -3,6 +3,7 @@ import { B2BCart } from "@/types"
 import { ApprovalStatusType } from "@/types/approval"
 import { CheckMini, LockClosedSolid, XMarkMini } from "@medusajs/icons"
 import { Container, Text } from "@medusajs/ui"
+import { t } from "@/lib/util/translate"
 
 const ApprovalStatusBanner = ({ cart }: { cart: B2BCart }) => {
   const cartApprovalStatus = cart.approval_status?.status
@@ -16,7 +17,7 @@ const ApprovalStatusBanner = ({ cart }: { cart: B2BCart }) => {
       {cartApprovalStatus === ApprovalStatusType.PENDING && (
         <>
           <LockClosedSolid className="w-4 h-4" />
-          <Text className="text-left">This cart is locked for approval.</Text>
+          <Text className="text-left">{t("cart.cartLockedForApproval")}</Text>
         </>
       )}
 
@@ -24,12 +25,12 @@ const ApprovalStatusBanner = ({ cart }: { cart: B2BCart }) => {
         <>
           <XMarkMini className="w-4 h-4" />
           <Text className="text-left">
-            This cart has been rejected. You can re-request approval from the{" "}
+            {t("cart.cartRejected")}{" "}
             <LocalizedClientLink
               href="/checkout"
               className="text-ui-bg-interactive hover:text-ui-fg-interactive-hover"
             >
-              checkout page
+              {t("cart.checkoutPage")}
             </LocalizedClientLink>
             .
           </Text>
@@ -39,9 +40,7 @@ const ApprovalStatusBanner = ({ cart }: { cart: B2BCart }) => {
       {cartApprovalStatus === ApprovalStatusType.APPROVED && (
         <>
           <CheckMini className="w-4 h-4" />
-          <Text className="text-left">
-            This cart has been approved and can now be completed.
-          </Text>
+          <Text className="text-left">{t("cart.cartApproved")}</Text>
         </>
       )}
     </Container>

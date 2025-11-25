@@ -17,6 +17,35 @@ import { ExclamationCircle, LockClosedSolidMini } from "@medusajs/icons"
 import { Drawer, Text } from "@medusajs/ui"
 import { usePathname } from "next/navigation"
 import { useEffect, useMemo, useRef, useState } from "react"
+import { t } from "@/lib/util/translate"
+
+// Helper function for Russian plural forms
+const getItemCountMessage = (count: number): string => {
+  if (count === 0) {
+    return t("cart.drawer.emptyCartMessage")
+  }
+
+  const lastDigit = count % 10
+  const lastTwoDigits = count % 100
+
+  // Special case for 11-14
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
+    return t("cart.drawer.itemsInCart").replace("{count}", count.toString())
+  }
+
+  // 1 item
+  if (lastDigit === 1) {
+    return t("cart.drawer.itemInCart").replace("{count}", count.toString())
+  }
+
+  // 2-4 items
+  if (lastDigit >= 2 && lastDigit <= 4) {
+    return t("cart.drawer.itemsInCart2to4").replace("{count}", count.toString())
+  }
+
+  // 5+ items
+  return t("cart.drawer.itemsInCart").replace("{count}", count.toString())
+}
 
 type CartDrawerProps = {
   customer: B2BCustomer | null
@@ -46,7 +75,7 @@ const CartDrawer = ({
       return acc + item.quantity
     }, 0) || 0
 
-  const subtotal = useMemo(() => cart?.item_subtotal ?? 0, [cart])
+  const total = useMemo(() => cart?.total ?? 0, [cart])
 
   const spendLimitExceeded = useMemo(
     () => checkSpendingLimit(cart, customer),
@@ -128,10 +157,10 @@ const CartDrawer = ({
             <span className="text-sm font-normal hidden small:inline-block">
               {cart && items && items.length > 0
                 ? convertToLocale({
-                    amount: subtotal,
+                    amount: total,
                     currency_code: cart.currency_code,
                   })
-                : "Cart"}
+                : t("nav.cart")}
             </span>
             <div className="bg-blue-500 text-white text-xs px-1.5 py-px rounded-full">
               {totalItems}
@@ -143,11 +172,7 @@ const CartDrawer = ({
           onMouseEnter={cancelTimer}
         >
           <Drawer.Header className="flex self-center">
-            <Drawer.Title>
-              {totalItems > 0
-                ? `You have ${totalItems} items in your cart`
-                : "Your cart is empty"}
-            </Drawer.Title>
+            <Drawer.Title>{getItemCountMessage(totalItems)}</Drawer.Title>
           </Drawer.Header>
           {cart?.approvals && cart.approvals.length > 0 && (
             <div className="p-4">
@@ -176,10 +201,10 @@ const CartDrawer = ({
                     />
                   )}
                   <div className="flex justify-between">
-                    <Text>Subtotal</Text>
+                    <Text>{t("cart.drawer.subtotalLabel")}</Text>
                     <Text>
                       {convertToLocale({
-                        amount: subtotal,
+                        amount: total,
                         currency_code: cart?.currency_code,
                       })}
                     </Text>
@@ -191,7 +216,7 @@ const CartDrawer = ({
                         className="w-full"
                         size="large"
                       >
-                        View Cart
+                        {t("cart.drawer.viewCartButton")}
                       </Button>
                     </LocalizedClientLink>
                     <LocalizedClientLink href={checkoutPath}>
@@ -203,17 +228,16 @@ const CartDrawer = ({
                         <LockClosedSolidMini />
                         {customer
                           ? spendLimitExceeded
-                            ? "Spending Limit Exceeded"
-                            : "Secure Checkout"
-                          : "Log in to checkout"}
+                            ? t("cart.drawer.spendingLimitExceeded")
+                            : t("cart.drawer.secureCheckout")
+                          : t("cart.drawer.logInToCheckout")}
                       </Button>
                     </LocalizedClientLink>
                     {spendLimitExceeded && (
                       <div className="flex items-center gap-x-2 bg-neutral-100 p-3 rounded-md shadow-borders-base">
                         <ExclamationCircle className="text-orange-500 w-fit overflow-visible" />
                         <p className="text-neutral-950 text-xs">
-                          This order exceeds your spending limit. Please contact
-                          your manager for approval.
+                          {t("cart.drawer.spendingLimitMessage")}
                         </p>
                       </div>
                     )}

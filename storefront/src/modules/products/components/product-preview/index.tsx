@@ -24,6 +24,7 @@ export default async function ProductPreview({
   })
 
   const inventoryQuantity = product.variants?.reduce((acc, variant) => {
+    console.log(variant)
     return acc + (variant?.inventory_quantity || 0)
   }, 0)
 
@@ -42,14 +43,14 @@ export default async function ProductPreview({
           />
         </div>
         <div className="flex flex-col txt-compact-medium">
-          <Text className="text-neutral-600 text-xs">BRAND</Text>
+          {/* <Text className="text-neutral-600 text-xs">BRAND</Text> */}
           <Text className="text-ui-fg-base" data-testid="product-title">
             {product.title}
           </Text>
         </div>
         <div className="flex flex-col gap-0">
           {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
-          <Text className="text-neutral-600 text-[0.6rem]">Excl. VAT</Text>
+          {/* <Text className="text-neutral-600 text-[0.6rem]">Excl. VAT</Text> */}
         </div>
         <div className="flex justify-between">
           <div className="flex flex-row gap-1 items-center">

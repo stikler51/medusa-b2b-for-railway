@@ -10,6 +10,7 @@ import { B2BCart, B2BCustomer } from "@/types"
 import { ApprovalStatusType } from "@/types/approval"
 import { CheckCircleSolid } from "@medusajs/icons"
 import { Container, Heading, Text } from "@medusajs/ui"
+import { t } from "@/lib/util/translate"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useCallback, useState } from "react"
 
@@ -64,7 +65,7 @@ const ShippingAddress = ({
             level="h2"
             className="flex flex-row text-xl gap-x-2 items-center"
           >
-            Shipping Address
+            {t("checkout.shippingAddress")}
             {!isOpen && <CheckCircleSolid />}
           </Heading>
 
@@ -77,7 +78,7 @@ const ShippingAddress = ({
                   className="text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
                   data-testid="edit-address-button"
                 >
-                  Edit
+                  {t("common.edit")}
                 </button>
               </Text>
             )}
@@ -92,7 +93,7 @@ const ShippingAddress = ({
                   className="mt-6"
                   data-testid="submit-address-button"
                 >
-                  Next step
+                  {t("common.next")}
                 </SubmitButton>
                 <ErrorMessage
                   error={error}

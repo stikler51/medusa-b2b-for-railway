@@ -1,5 +1,6 @@
 import { HttpTypes } from "@medusajs/types"
 import { Badge, Container, Text } from "@medusajs/ui"
+import { t } from "@/lib/util/translate"
 
 const AppliedPromotions = ({
   promotions,
@@ -8,7 +9,7 @@ const AppliedPromotions = ({
 }) => {
   return (
     <Container className="flex gap-2 items-center py-3 flex-wrap">
-      <Text>Promotions applied:</Text>
+      <Text>{t("cart.page.promotionsApplied")}</Text>
       {promotions?.map((promotion) => (
         <Badge
           key={promotion.id}

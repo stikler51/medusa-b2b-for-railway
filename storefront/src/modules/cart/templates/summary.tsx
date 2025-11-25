@@ -14,6 +14,7 @@ import { B2BCustomer } from "@/types"
 import { ApprovalStatusType } from "@/types/approval"
 import { ExclamationCircle } from "@medusajs/icons"
 import { Container } from "@medusajs/ui"
+import { t } from "@/lib/util/translate"
 
 type SummaryProps = {
   customer: B2BCustomer | null
@@ -46,9 +47,9 @@ const Summary = ({ customer, spendLimitExceeded }: SummaryProps) => {
         <div className="flex items-center gap-x-2 bg-neutral-100 p-3 rounded-md shadow-borders-base">
           <ExclamationCircle className="text-orange-500 w-fit overflow-visible" />
           <p className="text-neutral-950 text-xs">
-            This order exceeds your spending limit.
+            {t("cart.page.spendingLimitMessage")}
             <br />
-            Please contact your manager for approval.
+            {t("cart.page.contactManager")}
           </p>
         </div>
       )}
@@ -62,9 +63,9 @@ const Summary = ({ customer, spendLimitExceeded }: SummaryProps) => {
         >
           {customer
             ? spendLimitExceeded
-              ? "Spending Limit Exceeded"
-              : "Checkout"
-            : "Log in to Checkout"}
+              ? t("cart.drawer.spendingLimitExceeded")
+              : t("cart.page.checkoutButton")
+            : t("cart.page.logInToCheckoutButton")}
         </Button>
       </LocalizedClientLink>
       {!!customer && (
@@ -74,7 +75,7 @@ const Summary = ({ customer, spendLimitExceeded }: SummaryProps) => {
             variant="secondary"
             disabled={isPendingApproval}
           >
-            Request Quote
+            {t("cart.page.requestQuoteButton")}
           </Button>
         </RequestQuoteConfirmation>
       )}
@@ -85,7 +86,7 @@ const Summary = ({ customer, spendLimitExceeded }: SummaryProps) => {
             variant="secondary"
             disabled={isPendingApproval}
           >
-            Request Quote
+            {t("cart.page.requestQuoteButton")}
           </Button>
         </RequestQuotePrompt>
       )}
@@ -96,7 +97,7 @@ const Summary = ({ customer, spendLimitExceeded }: SummaryProps) => {
         variant="secondary"
         disabled={isPendingApproval}
       >
-        Empty Cart
+        {t("cart.page.emptyCartButton")}
       </Button>
     </Container>
   )

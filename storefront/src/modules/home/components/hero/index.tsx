@@ -4,6 +4,7 @@ import { Github } from "@medusajs/icons"
 import { Heading } from "@medusajs/ui"
 import Button from "@/modules/common/components/button"
 import Image from "next/image"
+import Link from "next/link"
 
 const Hero = () => {
   return (
@@ -17,30 +18,25 @@ const Hero = () => {
       />
       <div className="absolute inset-0 z-1 flex flex-col justify-center items-center text-center small:p-32 gap-6">
         <span>
-          <p className="text-neutral-600 text-xs uppercase">
-            Be light on your feet
-          </p>
+          <p className="text-neutral-600 text-xs uppercase">Пссс, парень</p>
 
           <Heading
             level="h1"
             className="text-6xl leading-10 text-ui-fg-base font-normal mt-10 mb-5"
           >
-            Portable Bestsellers
+            Купи модуль
           </Heading>
 
           <p className="leading-10 text-ui-fg-subtle font-normal text-lg">
-            See our widest selection of electronics
+            Чтобы я мог купить себе Панамеру
           </p>
         </span>
-        <a
-          href="https://github.com/medusajs/b2b-starter-medusa"
-          target="_blank"
-        >
+        <Link href="/by/store">
           <Button variant="secondary" className="rounded-2xl">
-            <Github />
-            Github Repository
+            {/* <Github /> */}
+            Купить все модули
           </Button>
-        </a>
+        </Link>
       </div>
     </div>
   )

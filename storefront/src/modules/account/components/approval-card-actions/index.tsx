@@ -14,6 +14,7 @@ import {
 import { usePrompt } from "@medusajs/ui"
 import { useParams, useRouter } from "next/navigation"
 import { useState } from "react"
+import { t } from "@/lib/util/translate"
 
 const ApprovalCardActions = ({
   cartWithApprovals,
@@ -42,8 +43,8 @@ const ApprovalCardActions = ({
     if (!pendingAdminApproval) return
 
     const confirmed = await dialog({
-      title: "Are you sure you want to approve this cart?",
-      description: "This action cannot be undone.",
+      title: t("account.approveCartTitle"),
+      description: t("account.actionCannotBeUndone"),
     })
 
     if (!confirmed) return
@@ -57,8 +58,8 @@ const ApprovalCardActions = ({
     if (!pendingAdminApproval) return
 
     const confirmed = await dialog({
-      title: "Are you sure you want to reject this cart?",
-      description: "This action cannot be undone.",
+      title: t("account.rejectCartTitle"),
+      description: t("account.actionCannotBeUndone"),
     })
 
     if (!confirmed) return
@@ -89,7 +90,7 @@ const ApprovalCardActions = ({
             isLoading={rejecting}
           >
             <XMarkMini className="inline-block" />
-            Reject
+            {t("account.reject")}
           </Button>
           <Button
             size="small"
@@ -100,7 +101,7 @@ const ApprovalCardActions = ({
             isLoading={approving}
           >
             <CheckMini className="inline-block" />
-            Approve
+            {t("account.approve")}
           </Button>
         </>
       ) : cartWithApprovals.approval_status?.status ===
@@ -109,7 +110,7 @@ const ApprovalCardActions = ({
           {"·"}
           <Button variant="primary" disabled>
             <LockClosedSolidMini className="inline-block" />
-            Awaiting External Approval
+            {t("account.awaitingExternalApproval")}
           </Button>
         </>
       ) : cartWithApprovals.approval_status?.status ===
@@ -127,7 +128,7 @@ const ApprovalCardActions = ({
               <LocalizedClientLink
                 href={`/checkout?cart_id=${cartWithApprovals.id}&step=payment`}
               >
-                Place Order
+                {t("account.placeOrder")}
                 <ArrowRightMini className="inline-block" />
               </LocalizedClientLink>
             </Button>

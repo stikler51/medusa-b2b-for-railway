@@ -5,6 +5,7 @@ import Button from "@/modules/common/components/button"
 import { B2BCart } from "@/types"
 import { Text } from "@medusajs/ui"
 import { useState } from "react"
+import { t } from "@/lib/util/translate"
 
 type CartToCsvButtonProps = {
   cart: B2BCart
@@ -57,7 +58,7 @@ const CartToCsvButton = ({ cart }: CartToCsvButtonProps) => {
         onClick={handleExportCart}
         isLoading={isExportingCart}
       >
-        Export Cart (.csv)
+        {t("cart.page.exportCartButton")}
       </Button>
       {error && <Text className="text-red-500">{error}</Text>}
     </div>

@@ -1,6 +1,7 @@
 import LocalizedClientLink from "@/modules/common/components/localized-client-link"
 import { HttpTypes } from "@medusajs/types"
 import type { JSX } from "react"
+import { t } from "@/lib/util/translate"
 
 const CategoryBreadcrumbItem = ({
   title,
@@ -76,7 +77,7 @@ const CategoryBreadcrumb = ({
     )
 
     breadcrumbs.unshift(
-      <CategoryBreadcrumbItem title="Products" key={`base`} />
+      <CategoryBreadcrumbItem title={t("categories.products")} key={`base`} />
     )
 
     return breadcrumbs

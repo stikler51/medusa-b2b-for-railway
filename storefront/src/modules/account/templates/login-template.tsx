@@ -7,6 +7,7 @@ import { clx } from "@medusajs/ui"
 import Image from "next/image"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
+import { t } from "@/lib/util/translate"
 
 export enum LOGIN_VIEW {
   LOG_IN = "log-in",
@@ -63,7 +64,7 @@ const LoginTemplate = ({ regions }: { regions: HttpTypes.StoreRegion[] }) => {
       <div className="relative">
         <Image
           src="/account-block.jpg"
-          alt="Login banner background"
+          alt={t("account.loginBannerAlt")}
           className={clx(
             "object-cover transition-opacity duration-300 w-full h-full",
             imageLoaded ? "opacity-100" : "opacity-0"

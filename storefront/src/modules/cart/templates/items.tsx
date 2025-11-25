@@ -5,6 +5,7 @@ import { B2BCart } from "@/types/global"
 import { StoreCartLineItem } from "@medusajs/types"
 import { Container, Text } from "@medusajs/ui"
 import { useMemo } from "react"
+import { t } from "@/lib/util/translate"
 
 type ItemsTemplateProps = {
   cart: B2BCart
@@ -52,7 +53,7 @@ const ItemsTemplate = ({
       {showTotal && (
         <Container>
           <div className="flex items-start justify-between h-full self-stretch">
-            <Text>Total: {totalQuantity} items</Text>
+            <Text>{t("cart.totalItems", { count: totalQuantity ?? 0 })}</Text>
             <Text>
               {convertToLocale({
                 amount: cart?.item_total,

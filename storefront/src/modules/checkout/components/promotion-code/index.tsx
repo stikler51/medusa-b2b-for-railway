@@ -11,6 +11,7 @@ import { usePathname } from "next/navigation"
 import React, { useActionState } from "react"
 import ErrorMessage from "../error-message"
 import { SubmitButton } from "../submit-button"
+import { t } from "@/lib/util/translate"
 
 type PromotionCodeProps = {
   cart: B2BCart
@@ -71,7 +72,7 @@ const PromotionCode: React.FC<PromotionCodeProps> = ({ cart }) => {
               className="flex gap-x-1 my-2 items-center txt-medium text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
               data-testid="add-discount-button"
             >
-              Enter Promotion Code{" "}
+              {t("checkout.enterPromotionCode")}{" "}
               {isOpen ? <ChevronUpMini /> : <ChevronDownMini />}
             </button>
 
@@ -91,7 +92,7 @@ const PromotionCode: React.FC<PromotionCodeProps> = ({ cart }) => {
                     variant="secondary"
                     data-testid="discount-apply-button"
                   >
-                    Apply
+                    {t("checkout.applyButton")}
                   </SubmitButton>
                 </div>
 
@@ -108,7 +109,9 @@ const PromotionCode: React.FC<PromotionCodeProps> = ({ cart }) => {
           <div className="w-full flex items-center">
             <div className="flex flex-col w-full">
               <Heading className="txt-medium mb-2">
-                Promotion{promotions.length > 1 ? "s" : ""} applied:
+                {promotions.length > 1
+                  ? t("checkout.promotionsApplied")
+                  : t("checkout.promotionApplied")}
               </Heading>
 
               {promotions.map((promotion) => {
@@ -159,7 +162,7 @@ const PromotionCode: React.FC<PromotionCodeProps> = ({ cart }) => {
                       >
                         <Trash size={14} />
                         <span className="sr-only">
-                          Remove discount code from order
+                          {t("checkout.removeDiscountCode")}
                         </span>
                       </button>
                     )}

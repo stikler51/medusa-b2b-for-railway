@@ -4,6 +4,7 @@ import { Disclosure } from "@headlessui/react"
 import { Badge, clx } from "@medusajs/ui"
 import { useEffect } from "react"
 import { useFormStatus } from "react-dom"
+import { t } from "@/lib/util/translate"
 
 type AccountInfoProps = {
   label: string
@@ -22,7 +23,7 @@ const AccountInfo = ({
   isSuccess,
   isError,
   clearState,
-  errorMessage = "An error occurred, please try again",
+  errorMessage,
   children,
   "data-testid": dataTestid,
 }: AccountInfoProps) => {
@@ -65,7 +66,7 @@ const AccountInfo = ({
             data-testid="edit-button"
             data-active={state}
           >
-            {state ? "Cancel" : "Edit"}
+            {state ? t("account.cancel") : t("account.edit")}
           </Button>
         </div>
       </div>
@@ -84,7 +85,7 @@ const AccountInfo = ({
           data-testid="success-message"
         >
           <Badge className="p-2 my-4" color="green">
-            <span>{label} updated succesfully</span>
+            <span>{t("account.updatedSuccessfully", { label })}</span>
           </Badge>
         </Disclosure.Panel>
       </Disclosure>
@@ -103,7 +104,7 @@ const AccountInfo = ({
           data-testid="error-message"
         >
           <Badge className="p-2 my-4" color="red">
-            <span>{errorMessage}</span>
+            <span>{errorMessage || t("account.errorOccurred")}</span>
           </Badge>
         </Disclosure.Panel>
       </Disclosure>
@@ -128,7 +129,7 @@ const AccountInfo = ({
                 type="submit"
                 data-testid="save-button"
               >
-                Save changes
+                {t("account.saveChanges")}
               </Button>
             </div>
           </div>

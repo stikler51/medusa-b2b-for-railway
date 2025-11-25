@@ -6,6 +6,8 @@ import { CalendarMini, DocumentText } from "@medusajs/icons"
 import { Button, clx, Container } from "@medusajs/ui"
 import Image from "next/image"
 import { useMemo } from "react"
+import { t } from "@/lib/util/translate"
+import { getPluralizedItemCount } from "@/lib/util/pluralize"
 
 type QuoteCardProps = {
   quote: StoreQuoteResponse["quote"]
@@ -66,7 +68,7 @@ const QuoteCard = ({ quote }: QuoteCardProps) => {
 
         <div className="flex pr-2 text-small-regular items-center">
           <CalendarMini className="inline-block mr-1" />
-          {createdAt.getDate()}-{createdAt.getMonth()}-{createdAt.getFullYear()}
+          {createdAt.toLocaleDateString("ru-RU")}
         </div>
 
         <div className="flex text-small-regular items-center">
@@ -88,15 +90,15 @@ const QuoteCard = ({ quote }: QuoteCardProps) => {
             })}
           </span>
           {"·"}
-          <span className="pl-2">{`${numberOfLines} ${
-            numberOfLines > 1 ? "items" : "item"
-          }`}</span>
+          <span className="pl-2">
+            {getPluralizedItemCount(numberOfLines, t, "account")}
+          </span>
         </div>
 
         <div className="pl-4">
           <LocalizedClientLink href={`/account/quotes/details/${quote.id}`}>
             <Button variant="secondary" className="rounded-full text-xs">
-              See details
+              {t("account.seeDetails")}
             </Button>
           </LocalizedClientLink>
         </div>

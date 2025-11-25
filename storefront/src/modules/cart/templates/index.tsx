@@ -10,6 +10,31 @@ import Summary from "@/modules/cart/templates/summary"
 import { B2BCustomer } from "@/types/global"
 import { Heading } from "@medusajs/ui"
 import { useMemo } from "react"
+import { t } from "@/lib/util/translate"
+
+// Helper function for Russian plural forms
+const getItemCountMessage = (count: number): string => {
+  const lastDigit = count % 10
+  const lastTwoDigits = count % 100
+
+  // Special case for 11-14
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
+    return t("cart.page.itemsInCart").replace("{count}", count.toString())
+  }
+
+  // 1 item
+  if (lastDigit === 1) {
+    return t("cart.page.itemInCart").replace("{count}", count.toString())
+  }
+
+  // 2-4 items
+  if (lastDigit >= 2 && lastDigit <= 4) {
+    return t("cart.page.itemsInCart2to4").replace("{count}", count.toString())
+  }
+
+  // 5+ items
+  return t("cart.page.itemsInCart").replace("{count}", count.toString())
+}
 
 const CartTemplate = ({ customer }: { customer: B2BCustomer | null }) => {
   const { cart } = useCart()
@@ -32,7 +57,7 @@ const CartTemplate = ({ customer }: { customer: B2BCustomer | null }) => {
             <div className="flex flex-col py-6 gap-y-6">
               <div className="pb-3 flex items-center">
                 <Heading className="text-neutral-950">
-                  You have {totalItems} items in your cart
+                  {getItemCountMessage(totalItems)}
                 </Heading>
               </div>
               <div className="grid grid-cols-1 small:grid-cols-[1fr_360px] gap-2">

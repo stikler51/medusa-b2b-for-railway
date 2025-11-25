@@ -6,6 +6,8 @@ import { HttpTypes } from "@medusajs/types"
 import { Button, clx, Container } from "@medusajs/ui"
 import Image from "next/image"
 import { useMemo } from "react"
+import { t } from "@/lib/util/translate"
+import { getPluralizedItemCount } from "@/lib/util/pluralize"
 
 type OrderCardProps = {
   order: HttpTypes.StoreOrder
@@ -68,7 +70,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
             data-testid="order-created-at"
           >
             <CalendarIcon className="inline-block mr-1" />
-            {createdAt.toLocaleDateString("en-GB", {
+            {createdAt.toLocaleDateString("ru-RU", {
               year: "numeric",
               month: "numeric",
               day: "numeric",
@@ -90,9 +92,9 @@ const OrderCard = ({ order }: OrderCardProps) => {
               })}
             </span>
             {"·"}
-            <span className="px-2">{`${numberOfLines} ${
-              numberOfLines > 1 ? "items" : "item"
-            }`}</span>
+            <span className="px-2">
+              {getPluralizedItemCount(numberOfLines, t, "account")}
+            </span>
           </div>
 
           <div className="flex items-center gap-x-2 pl-4">
@@ -109,7 +111,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
                 variant="secondary"
                 className="rounded-full text-xs"
               >
-                Details
+                {t("account.viewOrder")}
               </Button>
             </LocalizedClientLink>
           </div>

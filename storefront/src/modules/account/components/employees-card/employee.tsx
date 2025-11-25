@@ -18,6 +18,7 @@ import {
 import { HttpTypes } from "@medusajs/types"
 import { CurrencyInput, Prompt, Text, clx, toast } from "@medusajs/ui"
 import { useState } from "react"
+import { t } from "@/lib/util/translate"
 
 const RemoveEmployeePrompt = ({ employee }: { employee: QueryEmployee }) => {
   const [isRemoving, setIsRemoving] = useState(false)
@@ -25,36 +26,36 @@ const RemoveEmployeePrompt = ({ employee }: { employee: QueryEmployee }) => {
   const handleRemove = async () => {
     setIsRemoving(true)
     await deleteEmployee(employee.company_id, employee.id).catch(() => {
-      toast.error("Error deleting employee")
+      toast.error(t("account.errorDeletingEmployee"))
     })
     setIsRemoving(false)
 
-    toast.success("Employee deleted")
+    toast.success(t("account.employeeDeleted"))
   }
 
   return (
     <Prompt variant="danger">
       <Prompt.Trigger asChild>
-        <Button variant="transparent">Remove</Button>
+        <Button variant="transparent">{t("account.remove")}</Button>
       </Prompt.Trigger>
       <Prompt.Content>
         <Prompt.Header>
-          <Prompt.Title>Remove Employee</Prompt.Title>
+          <Prompt.Title>{t("account.removeEmployee")}</Prompt.Title>
           <Prompt.Description>
-            Are you sure you want to remove{" "}
-            <strong>{employee.customer.email}</strong> from your team? They will
-            no longer be able to purchase on behalf of your company.
+            {t("account.removeEmployeeDescription", {
+              email: employee.customer.email,
+            })}
           </Prompt.Description>
         </Prompt.Header>
         <Prompt.Footer>
           <Prompt.Cancel className="h-10 rounded-full shadow-borders-base">
-            Cancel
+            {t("account.cancel")}
           </Prompt.Cancel>
           <Prompt.Action
             className="h-10 px-4 rounded-full shadow-none"
             onClick={handleRemove}
           >
-            Remove
+            {t("account.remove")}
           </Prompt.Action>
         </Prompt.Footer>
       </Prompt.Content>
@@ -92,13 +93,13 @@ const Employee = ({
 
     setIsSaving(true)
     await updateEmployee(updateData as StoreUpdateEmployee).catch(() => {
-      toast.error("Error updating employee")
+      toast.error(t("account.errorUpdatingEmployee"))
     })
 
     setIsSaving(false)
     setIsEditing(false)
 
-    toast.success("Employee updated")
+    toast.success(t("account.employeeUpdated"))
   }
 
   const spent = getOrderTotalInSpendWindow(orders, getSpendWindow(company)) || 0
@@ -110,11 +111,11 @@ const Employee = ({
         <div className="flex flex-col">
           <Text className=" text-neutral-950 font-medium">
             {employee.customer.first_name} {employee.customer.last_name}{" "}
-            {isCurrentUser && "(You)"}{" "}
+            {isCurrentUser && t("account.you")}{" "}
             {employee.is_admin && (
               <>
                 {" • "}
-                <span className="text-blue-500">Admin</span>
+                <span className="text-blue-500">{t("account.admin")}</span>
               </>
             )}
           </Text>
@@ -131,8 +132,8 @@ const Employee = ({
               {amountSpent} /{" "}
               {employee.spending_limit > 0
                 ? formatAmount(employee.spending_limit, company.currency_code!)
-                : "No limit"}{" "}
-              spent
+                : t("account.noLimit")}{" "}
+              {t("account.spent")}
             </Text>
           </div>
         </div>
@@ -144,14 +145,14 @@ const Employee = ({
                 onClick={() => setIsEditing(false)}
                 disabled={isSaving}
               >
-                Cancel
+                {t("account.cancel")}
               </Button>
               <Button
                 variant="primary"
                 onClick={handleSubmit}
                 isLoading={isSaving}
               >
-                Save
+                {t("account.save")}
               </Button>
             </>
           ) : (
@@ -161,7 +162,7 @@ const Employee = ({
                 variant="secondary"
                 onClick={() => setIsEditing((prev) => !prev)}
               >
-                Edit
+                {t("account.edit")}
               </Button>
             </>
           )}
@@ -183,7 +184,9 @@ const Employee = ({
         }}
       >
         <div className="flex flex-col gap-y-2">
-          <Text className=" text-neutral-950 font-medium">Spending Limit</Text>
+          <Text className=" text-neutral-950 font-medium">
+            {t("account.spendingLimit")}
+          </Text>
           <CurrencyInput
             symbol={currencySymbolMap[company.currency_code!]}
             code={company.currency_code!}
@@ -199,7 +202,9 @@ const Employee = ({
           />
         </div>
         <div className="flex flex-col gap-y-2">
-          <Text className=" text-neutral-950 font-medium">Permissions</Text>
+          <Text className=" text-neutral-950 font-medium">
+            {t("account.permissions")}
+          </Text>
           <NativeSelect
             className="bg-white"
             name="permissions"
@@ -212,8 +217,8 @@ const Employee = ({
               })
             }}
           >
-            <option value="true">Admin</option>
-            <option value="false">Employee</option>
+            <option value="true">{t("account.admin")}</option>
+            <option value="false">{t("account.employee")}</option>
           </NativeSelect>
         </div>
       </form>

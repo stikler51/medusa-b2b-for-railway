@@ -1,5 +1,7 @@
+
 import { listCartShippingMethods } from "@/lib/data/fulfillment"
 import { listCartPaymentMethods } from "@/lib/data/payment"
+import { t } from "@/lib/util/translate"
 import ApprovalStatusBanner from "@/modules/cart/components/approval-status-banner"
 import SignInPrompt from "@/modules/cart/components/sign-in-prompt"
 import BillingAddress from "@/modules/checkout/components/billing-address"
@@ -43,7 +45,7 @@ export default async function CheckoutForm({
         >
           <Button variant="secondary">
             <UTurnArrowRight />
-            Back to shopping cart
+            {t("checkout.backToCart")}
           </Button>
         </LocalizedClientLink>
 
@@ -58,18 +60,24 @@ export default async function CheckoutForm({
 
         <ShippingAddress cart={cart} customer={customer} />
 
+        {t("checkout.billingAddress")}
         <BillingAddress cart={cart} />
 
         <Shipping cart={cart} availableShippingMethods={shippingMethods} />
 
+        {t("checkout.contactDetails")}
         <ContactDetails cart={cart} customer={customer} />
 
         {(customer?.employee?.is_admin &&
           cart.approval_status?.status === ApprovalStatusType.APPROVED) ||
         !requiresApproval ? (
-          <Payment cart={cart} availablePaymentMethods={paymentMethods} />
+          <>
+            {t("checkout.paymentMethod")}
+            <Payment cart={cart} availablePaymentMethods={paymentMethods} />
+          </>
         ) : null}
       </div>
     </div>
   )
 }
+```

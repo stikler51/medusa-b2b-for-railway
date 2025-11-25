@@ -5,6 +5,7 @@ import LocalizedClientLink from "@/modules/common/components/localized-client-li
 import { clx, Container, Text } from "@medusajs/ui"
 import Image from "next/image"
 import { useEffect, useState } from "react"
+import { t } from "@/lib/util/translate"
 
 const BackgroundImage = () => {
   const [imageLoaded, setImageLoaded] = useState(false)
@@ -19,7 +20,7 @@ const BackgroundImage = () => {
     <div className="relative w-full h-full transition-opacity duration-300">
       <Image
         src="/login-banner-bg.png"
-        alt="Login banner background"
+        alt={t("cart.loginBannerBackground")}
         className={clx(
           "absolute inset-0 object-cover object-center w-full h-full transition-opacity duration-300",
           imageLoaded ? "opacity-100" : "opacity-0"
@@ -38,9 +39,9 @@ const SignInPrompt = () => {
       <BackgroundImage />
       <div className="absolute inset-0 z-1 flex justify-between items-center text-center p-4">
         <Text className="small:text-4xl text-lg text-white text-left">
-          Log in for
+          {t("cart.page.signInPromptTitle")}
           <br />
-          faster checkout.
+          {t("cart.page.signInPromptSubtitle")}
         </Text>
         <div className="flex small:flex-row flex-col small:gap-4 gap-2">
           <LocalizedClientLink href="/account?view=register">
@@ -49,7 +50,7 @@ const SignInPrompt = () => {
               className="small:h-10 h-8 small:min-w-36 min-w-24 rounded-full"
               data-testid="sign-in-button"
             >
-              Register
+              {t("cart.page.registerButton")}
             </Button>
           </LocalizedClientLink>
           <LocalizedClientLink href="/account?view=log-in">
@@ -58,7 +59,7 @@ const SignInPrompt = () => {
               className="small:h-10 h-8 small:min-w-36 min-w-24 rounded-full"
               data-testid="sign-in-button"
             >
-              Log in
+              {t("cart.page.logInButton")}
             </Button>
           </LocalizedClientLink>
         </div>

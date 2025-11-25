@@ -1,6 +1,7 @@
 import LocalizedClientLink from "@/modules/common/components/localized-client-link"
 import User from "@/modules/common/icons/user"
 import { B2BCustomer } from "@/types/global"
+import { t } from "@/lib/util/translate"
 
 export default async function AccountButton({
   customer,
@@ -12,7 +13,7 @@ export default async function AccountButton({
       <button className="flex gap-1.5 items-center rounded-2xl bg-none shadow-none border-none hover:bg-neutral-100 px-2 py-1">
         <User />
         <span className="hidden small:inline-block">
-          {customer ? customer.first_name : "Log in"}
+          {customer ? customer.first_name : t("nav.logIn")}
         </span>
       </button>
     </LocalizedClientLink>

@@ -11,6 +11,7 @@ import { RequestQuotePrompt } from "@/modules/quotes/components/request-quote-pr
 import SkeletonAccountButton from "@/modules/skeletons/components/skeleton-account-button"
 import SkeletonCartButton from "@/modules/skeletons/components/skeleton-cart-button"
 import SkeletonMegaMenu from "@/modules/skeletons/components/skeleton-mega-menu"
+import { t } from "@/lib/util/translate"
 import { Suspense } from "react"
 
 export async function NavigationHeader() {
@@ -47,32 +48,36 @@ export async function NavigationHeader() {
               <input
                 disabled
                 type="text"
-                placeholder="Search for products"
+                placeholder={t("nav.searchPlaceholder")}
                 className="bg-gray-100 text-zinc-900 px-4 py-2 rounded-full pr-10 shadow-borders-base hidden small:inline-block hover:cursor-not-allowed"
-                title="Install a search provider to enable product search"
+                title={t("nav.searchTitle")}
               />
             </div>
 
             <div className="h-4 w-px bg-neutral-300" />
 
-            {customer && cart?.items && cart.items.length > 0 ? (
+            {/* {customer && cart?.items && cart.items.length > 0 ? (
               <RequestQuoteConfirmation>
                 <button
                   className="flex gap-1.5 items-center rounded-2xl bg-none shadow-none border-none hover:bg-neutral-100 px-2 py-1"
                   // disabled={isPendingApproval}
                 >
                   <FilePlus />
-                  <span className="hidden small:inline-block">Quote</span>
+                  <span className="hidden small:inline-block">
+                    {t("nav.quote")}
+                  </span>
                 </button>
               </RequestQuoteConfirmation>
             ) : (
               <RequestQuotePrompt>
                 <button className="flex gap-1.5 items-center rounded-2xl bg-none shadow-none border-none hover:bg-neutral-100 px-2 py-1">
                   <FilePlus />
-                  <span className="hidden small:inline-block">Quote</span>
+                  <span className="hidden small:inline-block">
+                    {t("nav.quote")}
+                  </span>
                 </button>
               </RequestQuotePrompt>
-            )}
+            )} */}
 
             <Suspense fallback={<SkeletonAccountButton />}>
               <AccountButton customer={customer} />
