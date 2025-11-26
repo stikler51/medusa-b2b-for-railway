@@ -12,6 +12,26 @@ export const translations = {
     logIn: "Войти",
     shippingTo: "Доставка в:",
     cart: "Корзина",
+    menu: "Меню",
+    home: "Главная",
+    store: "Магазин",
+    search: "Поиск",
+    account: "Аккаунт",
+  },
+
+  // Layout
+  layout: {
+    cartNotConnected: "Корзина не подключена к вашему аккаунту",
+    connectCart: "Подключить корзину",
+    connecting: "Подключение..",
+    poweredBy: "Работает на",
+    allRightsReserved: "Все права защищены.",
+    categories: "Категории",
+    collections: "Коллекции",
+    medusaStore: "Магазин Medusa",
+    github: "GitHub",
+    documentation: "Документация",
+    sourceCode: "Исходный код",
   },
 
   // Cart
@@ -113,6 +133,49 @@ export const translations = {
     summary: "Итого",
     requestApproval: "Запросить одобрение",
     approvalRequested: "Одобрение запрошено",
+    reviewOrder: "Проверить заказ",
+    terms: {
+      agreeTo: "Оформляя этот заказ, я соглашаюсь с ",
+      termsOfSale: "Условиями продажи ↗",
+      and: " и ",
+      privacyPolicy: "Политикой конфиденциальности ↗",
+    },
+    selectPaymentMethod: "Выберите способ оплаты",
+    approval: {
+      both: "Этот заказ требует одобрения как администратора компании, так и менеджера по продажам.",
+      admin: "Этот заказ требует одобрения администратора компании.",
+      salesManager: "Этот заказ требует одобрения менеджера по продажам.",
+    },
+    enterPromotionCode: "Введите промокод",
+    applyButton: "Применить",
+    promotionsApplied: "Применённые промокоды",
+    promotionApplied: "Применённый промокод",
+    removeDiscountCode: "Удалить промокод",
+    chooseAddress: "Выберите адрес",
+    country: "Страна",
+    payment: {
+      creditCard: "Кредитная карта",
+      payByInvoice: "Оплата по счёту",
+    },
+    useSavedAddress:
+      "Привет, {name}, хотите использовать один из сохраненных адресов?",
+    orderOnBehalfOf: "Заказ от имени {name}",
+    customCheckout: "Индивидуальное оформление",
+    invoiceRecipient: "Получатель счёта",
+    costCenter: "Центр затрат",
+    requisitionNumber: "Номер заявки",
+    doorCode: "Код домофона / Маркировка груза",
+    notes: "Примечания",
+    noteDisclaimer:
+      "Примечание появится только в счёте и подтверждении заказа и не будет прочитано продавцом.",
+    firstName: "Имя",
+    lastName: "Фамилия",
+    companyName: "Название компании",
+    address: "Адрес",
+    postalCode: "Почтовый индекс",
+    city: "Город",
+    province: "Область/Регион",
+    note: "Примечание:",
   },
 
   // Account
@@ -293,6 +356,50 @@ export const translations = {
     specifications: "Характеристики",
     reviews: "Отзывы",
     viewAll: "Посмотреть всe",
+    otherCustomersViewed: "Другие покупатели также просматривали",
+    selectOptions: "Выберите опции",
+    selectVariant: "Выберите вариант",
+    chooseVariantsAbove: "Выберите вариант(ы) товара выше",
+  },
+
+  // Order
+  order: {
+    // Order Details
+    details: "Детали",
+    orderNumber: "Номер заказа",
+    orderDate: "Дата заказа",
+    confirmationSent: "Мы отправили детали подтверждения заказа на",
+
+    // Addresses
+    billingAddress: "Адрес для выставления счёта",
+    deliveryAddress: "Адрес доставки",
+
+    // Order Summary
+    orderSummary: "Итоги заказа",
+    subtotal: "Промежуточный итог",
+    discount: "Скидка",
+    shipping: "Доставка",
+    taxes: "Налоги",
+    total: "Итого",
+
+    // Payment
+    payment: "Оплата",
+    paymentMethod: "Способ оплаты",
+    paymentDetails: "Детали оплаты",
+    paidAt: "оплачено в",
+
+    // Order Completion
+    thankYou: "Спасибо!",
+    orderPlacedSuccessfully: "Ваш заказ был успешно размещён.",
+    summary: "Итоги",
+
+    // Help
+    needHelp: "Нужна помощь?",
+    contact: "Связаться",
+    returnsAndExchanges: "Возвраты и обмены",
+
+    // Navigation
+    back: "Назад",
   },
 
   // Order Confirmation

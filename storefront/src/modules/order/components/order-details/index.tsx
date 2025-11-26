@@ -1,5 +1,6 @@
 import { HttpTypes } from "@medusajs/types"
 import { Heading, Text } from "@medusajs/ui"
+import { t } from "@/lib/util/translate"
 
 type OrderDetailsProps = {
   order: HttpTypes.StoreOrder
@@ -11,26 +12,22 @@ const OrderDetails = ({ order }: OrderDetailsProps) => {
   return (
     <>
       <Heading level="h3" className="mb-2">
-        Details
+        {t("order.details")}
       </Heading>
 
       <div className="text-sm text-ui-fg-subtle overflow-auto">
         <div className="flex justify-between">
-          <Text>Order Number</Text>
+          <Text>{t("order.orderNumber")}</Text>
           <Text>#{order.display_id}</Text>
         </div>
 
         <div className="flex justify-between mb-2">
-          <Text>Order Date</Text>
-          <Text>
-            {" "}
-            {createdAt.getDate()}-{createdAt.getMonth()}-
-            {createdAt.getFullYear()}
-          </Text>
+          <Text>{t("order.orderDate")}</Text>
+          <Text> {createdAt.toLocaleDateString("ru-RU")}</Text>
         </div>
 
         <Text>
-          We have sent the order confirmation details to{" "}
+          {t("order.confirmationSent")}{" "}
           <span className="font-semibold">{order.email}</span>.
         </Text>
       </div>

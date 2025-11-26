@@ -1,5 +1,6 @@
 import { HttpTypes } from "@medusajs/types"
 import { Heading, Text } from "@medusajs/ui"
+import { t } from "@/lib/util/translate"
 
 type ShippingDetailsProps = {
   order: HttpTypes.StoreOrder
@@ -35,7 +36,7 @@ const ShippingDetails = ({ order }: ShippingDetailsProps) => {
     !!order.shipping_address && (
       <>
         <Heading level="h3" className="mb-2">
-          Delivery Address
+          {t("order.deliveryAddress")}
         </Heading>
 
         {!!order.shipping_address && (
@@ -56,9 +57,8 @@ const ShippingDetails = ({ order }: ShippingDetailsProps) => {
             </Text>
             <Text className="txt-medium text-ui-fg-subtle">
               {order.shipping_address?.postal_code},{" "}
-              {order.shipping_address?.city},{" "}
-              {order.shipping_address?.province},{" "}
-              {order.shipping_address?.country_code?.toUpperCase()}
+              {order.shipping_address?.city}, {order.shipping_address?.province}
+              , {order.shipping_address?.country_code?.toUpperCase()}
             </Text>
           </div>
         )}

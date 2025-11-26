@@ -6,6 +6,7 @@ import Button from "@/modules/common/components/button"
 import ShoppingBag from "@/modules/common/icons/shopping-bag"
 import { useState } from "react"
 import BulkTableQuantity from "../bulk-table-quantity"
+import { t } from "@/lib/util/translate"
 
 const ProductVariantsTable = ({
   product,
@@ -89,9 +90,11 @@ const ProductVariantsTable = ({
                 )
               })}
               <Table.HeaderCell className="px-4 border-x">
-                Price
+                {t("products.price")}
               </Table.HeaderCell>
-              <Table.HeaderCell className="px-4">Quantity</Table.HeaderCell>
+              <Table.HeaderCell className="px-4">
+                {t("products.quantity")}
+              </Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body className="border-none">
@@ -147,8 +150,8 @@ const ProductVariantsTable = ({
           fill={totalQuantity === 0 ? "none" : "#fff"}
         />
         {totalQuantity === 0
-          ? "Choose product variant(s) above"
-          : "Add to cart"}
+          ? t("products.chooseVariantsAbove")
+          : t("products.addToCart")}
       </Button>
     </div>
   )

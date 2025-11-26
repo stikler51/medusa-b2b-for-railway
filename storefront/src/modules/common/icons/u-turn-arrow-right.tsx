@@ -1,6 +1,6 @@
 import React from "react"
 
-import { IconProps } from "types/icon"
+import { IconProps } from "@/types"
 
 const UTurnArrowRight: React.FC<IconProps> = ({
   size = "16",

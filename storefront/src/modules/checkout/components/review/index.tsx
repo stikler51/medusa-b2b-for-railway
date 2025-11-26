@@ -1,6 +1,7 @@
 "use client"
 
 import { Text } from "@medusajs/ui"
+import { t } from "@/lib/util/translate"
 
 import { checkSpendingLimit } from "@/lib/util/check-spending-limit"
 import PaymentButton from "@/modules/checkout/components/payment-button"
@@ -24,21 +25,21 @@ const Review = ({
     <div className="flex flex-col gap-y-2">
       <div className="flex items-start gap-x-1 w-full">
         <Text className="txt-xsmall text-neutral-500 mb-1">
-          By Completing this order, I agree to Medusa&apos;s{" "}
+          {t("checkout.terms.agreeTo")}
           <LocalizedClientLink
             href="/terms-of-sale"
             className="hover:text-neutral-800"
             target="_blank"
           >
-            Terms of Sale ↗
+            {t("checkout.terms.termsOfSale")}
           </LocalizedClientLink>{" "}
-          and{" "}
+          {t("checkout.terms.and")}
           <LocalizedClientLink
             href="/privacy-policy"
             className="hover:text-neutral-800"
             target="_blank"
           >
-            Privacy Policy ↗
+            {t("checkout.terms.privacyPolicy")}
           </LocalizedClientLink>
         </Text>
       </div>
@@ -47,13 +48,13 @@ const Review = ({
           <div className="flex items-center gap-x-2 bg-neutral-100 p-3 rounded-md shadow-borders-base">
             <ExclamationCircle className="text-orange-500 w-fit overflow-visible" />
             <p className="text-neutral-950 text-xs">
-              This order exceeds your spending limit.
+              {t("cart.page.spendingLimitMessage")}
               <br />
-              Please contact your manager for approval.
+              {t("cart.page.contactManager")}
             </p>
           </div>
           <Button className="w-full h-10 rounded-full shadow-none" disabled>
-            Place Order
+            {t("checkout.placeOrder")}
           </Button>
         </>
       ) : (

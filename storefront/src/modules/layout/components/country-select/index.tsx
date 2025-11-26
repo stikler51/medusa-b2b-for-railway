@@ -39,7 +39,7 @@ const CountrySelect = ({ toggleState, regions }: CountrySelectProps) => {
           country: c.iso_2,
           region: r.id,
           label: c.display_name,
-        }))
+        } as CountryOption))
       })
       .flat()
       .sort((a, b) => (a?.label ?? "").localeCompare(b?.label ?? ""))

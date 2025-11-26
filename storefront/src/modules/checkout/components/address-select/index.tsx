@@ -5,6 +5,7 @@ import { ChevronUpDown } from "@medusajs/icons"
 import { HttpTypes } from "@medusajs/types"
 import { clx } from "@medusajs/ui"
 import { Fragment, useMemo } from "react"
+import { t } from "@/lib/util/translate"
 
 type AddressSelectProps = {
   addresses: HttpTypes.StoreCustomerAddress[]
@@ -43,7 +44,7 @@ const AddressSelect = ({
               <span className="block truncate">
                 {selectedAddress
                   ? selectedAddress.address_1
-                  : "Choose an address"}
+                  : t("checkout.chooseAddress")}
               </span>
               <ChevronUpDown
                 className={clx("transition-rotate duration-200", {

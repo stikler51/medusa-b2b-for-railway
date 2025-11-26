@@ -6,6 +6,7 @@ import { HttpTypes } from "@medusajs/types"
 import { Container } from "@medusajs/ui"
 import { mapKeys } from "lodash"
 import React, { useEffect, useMemo, useState } from "react"
+import { t } from "@/lib/util/translate"
 
 const ShippingAddressForm = ({
   customer,
@@ -89,7 +90,7 @@ const ShippingAddressForm = ({
       {customer && (addressesInRegion?.length || 0) > 0 && (
         <Container className="mb-6 flex flex-col gap-y-4 p-5">
           <p className="text-small-regular">
-            {`Hi ${customer.first_name}, do you want to use one of your saved addresses?`}
+            {t("checkout.useSavedAddress", { name: customer.first_name || "" })}
           </p>
           <AddressSelect
             addresses={customer.addresses}
@@ -104,7 +105,7 @@ const ShippingAddressForm = ({
       )}
       <div className="grid grid-cols-2 gap-4">
         <Input
-          label="First name"
+          label={t("checkout.firstName")}
           name="shipping_address.first_name"
           autoComplete="given-name"
           value={formData["shipping_address.first_name"]}
@@ -113,7 +114,7 @@ const ShippingAddressForm = ({
           data-testid="shipping-first-name-input"
         />
         <Input
-          label="Last name"
+          label={t("checkout.lastName")}
           name="shipping_address.last_name"
           autoComplete="family-name"
           value={formData["shipping_address.last_name"]}
@@ -122,7 +123,7 @@ const ShippingAddressForm = ({
           data-testid="shipping-last-name-input"
         />
         <Input
-          label="Phone"
+          label={t("checkout.phone")}
           name="shipping_address.phone"
           autoComplete="tel"
           value={formData["shipping_address.phone"]}
@@ -131,7 +132,7 @@ const ShippingAddressForm = ({
           data-testid="shipping-phone-input"
         />
         <Input
-          label="Company name"
+          label={t("checkout.companyName")}
           name="shipping_address.company"
           value={formData["shipping_address.company"]}
           onChange={handleChange}
@@ -140,7 +141,7 @@ const ShippingAddressForm = ({
           colSpan={2}
         />
         <Input
-          label="Address"
+          label={t("checkout.address")}
           name="shipping_address.address_1"
           autoComplete="address-line1"
           value={formData["shipping_address.address_1"]}
@@ -150,7 +151,7 @@ const ShippingAddressForm = ({
           colSpan={2}
         />
         <Input
-          label="Postal code"
+          label={t("checkout.postalCode")}
           name="shipping_address.postal_code"
           autoComplete="postal-code"
           value={formData["shipping_address.postal_code"]}
@@ -161,7 +162,7 @@ const ShippingAddressForm = ({
         />
         <div className="grid small:grid-cols-3 grid-cols-2 gap-4 col-span-2">
           <Input
-            label="City"
+            label={t("checkout.city")}
             name="shipping_address.city"
             autoComplete="address-level2"
             value={formData["shipping_address.city"]}
@@ -170,7 +171,7 @@ const ShippingAddressForm = ({
             data-testid="shipping-city-input"
           />
           <Input
-            label="Province"
+            label={t("checkout.province")}
             name="shipping_address.province"
             autoComplete="address-level1"
             value={formData["shipping_address.province"]}

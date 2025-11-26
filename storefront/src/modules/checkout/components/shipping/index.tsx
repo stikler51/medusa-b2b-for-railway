@@ -11,6 +11,7 @@ import { RadioGroup, Radio as RadioGroupOption } from "@headlessui/react"
 import { CheckCircleSolid } from "@medusajs/icons"
 import { HttpTypes } from "@medusajs/types"
 import { Container, Heading, Text, clx } from "@medusajs/ui"
+import { t } from "@/lib/util/translate"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -74,7 +75,7 @@ const Shipping: React.FC<ShippingProps> = ({
                 !isOpen && cart.shipping_methods?.length === 0,
             })}
           >
-            Delivery Method
+            {t("checkout.deliveryMethod")}
             {!isOpen && (cart.shipping_methods?.length ?? 0) > 0 && (
               <CheckCircleSolid />
             )}
@@ -90,7 +91,7 @@ const Shipping: React.FC<ShippingProps> = ({
                   className="text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
                   data-testid="edit-delivery-button"
                 >
-                  Edit
+                  {t("common.edit")}
                 </button>
               </Text>
             )}
@@ -148,7 +149,7 @@ const Shipping: React.FC<ShippingProps> = ({
               disabled={!cart.shipping_methods?.[0]}
               data-testid="submit-delivery-option-button"
             >
-              Next step
+              {t("checkout.nextStep")}
             </Button>
           </div>
         </div>

@@ -10,6 +10,7 @@ import OrderDetails from "@/modules/order/components/order-details"
 import OrderSummary from "@/modules/order/components/order-summary"
 import ShippingDetails from "@/modules/order/components/shipping-details"
 import BillingDetails from "@/modules/order/components/billing-details"
+import { t } from "@/lib/util/translate"
 
 type OrderDetailsTemplateProps = {
   order: HttpTypes.StoreOrder
@@ -27,7 +28,7 @@ const OrderDetailsTemplate: React.FC<OrderDetailsTemplateProps> = ({
           data-testid="back-to-overview-button"
         >
           <Button variant="secondary">
-            <ArrowUturnLeft /> Back
+            <ArrowUturnLeft /> {t("order.back")}
           </Button>
         </LocalizedClientLink>
       </div>

@@ -8,6 +8,7 @@ import ChevronDown from "@/modules/common/icons/chevron-down"
 import X from "@/modules/common/icons/x"
 import React, { Fragment, useMemo } from "react"
 import OptionSelect from "./option-select"
+import { t } from "@/lib/util/translate"
 
 type MobileActionsProps = {
   product: HttpTypes.StoreProduct
@@ -105,7 +106,7 @@ const MobileActions: React.FC<MobileActionsProps> = ({
                   <span>
                     {variant
                       ? Object.values(options).join(" / ")
-                      : "Select Options"}
+                      : t("products.selectOptions")}
                   </span>
                   <ChevronDown />
                 </div>
@@ -118,10 +119,10 @@ const MobileActions: React.FC<MobileActionsProps> = ({
                 data-testid="mobile-cart-button"
               >
                 {!variant
-                  ? "Select variant"
+                  ? t("products.selectVariant")
                   : !inStock
-                  ? "Out of stock"
-                  : "Add to cart"}
+                  ? t("products.outOfStock")
+                  : t("products.addToCart")}
               </Button>
             </div>
           </div>

@@ -5,7 +5,8 @@ import Items from "@/modules/order/components/items"
 import OrderDetails from "@/modules/order/components/order-details"
 import PaymentDetails from "@/modules/order/components/payment-details"
 import ShippingDetails from "@/modules/order/components/shipping-details"
-import { B2BOrder } from "types/global"
+import { B2BOrder } from "@/types"
+import { t } from "@/lib/util/translate"
 
 type OrderCompletedTemplateProps = {
   order: B2BOrder
@@ -25,12 +26,12 @@ export default async function OrderCompletedTemplate({
             level="h1"
             className="flex flex-col gap-y-3 text-ui-fg-base text-3xl mb-4"
           >
-            <span>Thank you!</span>
-            <span>Your order was placed successfully.</span>
+            <span>{t("order.thankYou")}</span>
+            <span>{t("order.orderPlacedSuccessfully")}</span>
           </Heading>
           <OrderDetails order={order} />
           <Heading level="h2" className="flex flex-row text-3xl-regular">
-            Summary
+            {t("order.summary")}
           </Heading>
           <Items items={order.items} order={order} />
           <CheckoutTotals cartOrOrder={order} />

@@ -8,13 +8,14 @@ import { Fragment } from "react"
 import LocalizedClientLink from "@/modules/common/components/localized-client-link"
 import CountrySelect from "../country-select"
 import { HttpTypes } from "@medusajs/types"
+import { t } from "@/lib/util/translate"
 
-const SideMenuItems = {
-  Home: "/",
-  Store: "/store",
-  Search: "/search",
-  Account: "/account",
-  Cart: "/cart",
+const SideMenuItems: Record<string, string> = {
+  [t("nav.home")]: "/",
+  [t("nav.store")]: "/store",
+  [t("nav.search")]: "/search",
+  [t("nav.account")]: "/account",
+  [t("nav.cart")]: "/cart",
 }
 
 const SideMenu = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }) => {
@@ -31,7 +32,7 @@ const SideMenu = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }) => {
                   data-testid="nav-menu-button"
                   className="relative h-full flex items-center transition-all ease-out duration-200 focus:outline-none hover:text-ui-fg-base"
                 >
-                  Menu
+                  {t("nav.menu")}
                 </Popover.Button>
               </div>
 
@@ -91,8 +92,8 @@ const SideMenu = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }) => {
                         />
                       </div>
                       <Text className="flex justify-between txt-compact-small">
-                        © {new Date().getFullYear()} All rights
-                        reserved.
+                        © {new Date().getFullYear()}{" "}
+                        {t("layout.allRightsReserved")}
                       </Text>
                     </div>
                   </div>

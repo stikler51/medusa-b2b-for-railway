@@ -3,13 +3,15 @@ import NativeSelect, {
 } from "@/modules/common/components/native-select"
 import { HttpTypes } from "@medusajs/types"
 import { forwardRef, useImperativeHandle, useMemo, useRef } from "react"
+import { t } from "@/lib/util/translate"
 
 const CountrySelect = forwardRef<
   HTMLSelectElement,
   NativeSelectProps & {
     region?: HttpTypes.StoreRegion
   }
->(({ placeholder = "Country", region, defaultValue, ...props }, ref) => {
+>(({ placeholder, region, defaultValue, ...props }, ref) => {
+  const placeholderText = placeholder || t("checkout.country")
   const innerRef = useRef<HTMLSelectElement>(null)
 
   useImperativeHandle<HTMLSelectElement | null, HTMLSelectElement | null>(
@@ -31,7 +33,7 @@ const CountrySelect = forwardRef<
   return (
     <NativeSelect
       ref={innerRef}
-      placeholder={placeholder}
+      placeholder={placeholderText}
       defaultValue={defaultValue}
       {...props}
     >

@@ -5,6 +5,7 @@ import Divider from "@/modules/common/components/divider"
 import { ApprovalStatusType, B2BCart, B2BCustomer } from "@/types"
 import { CheckCircleSolid } from "@medusajs/icons"
 import { clx, Container, Heading, Text } from "@medusajs/ui"
+import { t } from "@/lib/util/translate"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useActionState, useCallback } from "react"
 import ContactDetailsForm from "../contact-details-form"
@@ -86,7 +87,7 @@ const ContactDetails = ({
               }
             )}
           >
-            Contact Details
+            {t("checkout.contactDetails")}
             {!isOpen && isCompleted && <CheckCircleSolid />}
           </Heading>
 
@@ -99,7 +100,7 @@ const ContactDetails = ({
                   className="text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
                   data-testid="edit-contact-details-button"
                 >
-                  Edit
+                  {t("common.edit")}
                 </button>
               </Text>
             )}
@@ -117,8 +118,8 @@ const ContactDetails = ({
                   {requiresApproval &&
                   cartApprovalStatus !== ApprovalStatusType.APPROVED &&
                   !customerIsAdmin
-                    ? "Review order"
-                    : "Next step"}
+                    ? t("checkout.reviewOrder")
+                    : t("checkout.nextStep")}
                 </SubmitButton>
                 <ErrorMessage
                   error={message}
@@ -142,7 +143,7 @@ const ContactDetails = ({
                   <div>
                     <Divider />
                     <Text className="txt-medium text-ui-fg-subtle pt-2">
-                      Note: {cart.metadata?.notes as string}
+                      {t("cart.note")} {cart.metadata?.notes as string}
                     </Text>
                   </div>
                 ) : null}

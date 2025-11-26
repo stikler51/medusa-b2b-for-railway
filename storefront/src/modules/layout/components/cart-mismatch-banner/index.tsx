@@ -4,12 +4,13 @@ import { transferCart } from "@/lib/data/customer"
 import { ExclamationCircleSolid } from "@medusajs/icons"
 import { Button } from "@medusajs/ui"
 import { useState } from "react"
-import { B2BCart, B2BCustomer } from "types/global"
+import { B2BCart, B2BCustomer } from "@/types"
+import { t } from "@/lib/util/translate"
 
 function CartMismatchBanner(props: { customer: B2BCustomer; cart: B2BCart }) {
   const { customer, cart } = props
   const [isPending, setIsPending] = useState(false)
-  const [actionText, setActionText] = useState("Connect cart")
+  const [actionText, setActionText] = useState(t("layout.connectCart"))
 
   if (!customer || !!cart.customer_id) {
     return
@@ -18,11 +19,11 @@ function CartMismatchBanner(props: { customer: B2BCustomer; cart: B2BCart }) {
   const handleSubmit = async () => {
     try {
       setIsPending(true)
-      setActionText("Connecting..")
+      setActionText(t("layout.connecting"))
 
       await transferCart()
     } catch {
-      setActionText("Connect cart")
+      setActionText(t("layout.connectCart"))
       setIsPending(false)
     }
   }
@@ -32,7 +33,7 @@ function CartMismatchBanner(props: { customer: B2BCustomer; cart: B2BCart }) {
       <div className="flex flex-col small:flex-row small:gap-2 gap-1 items-center">
         <span className="flex items-center gap-1">
           <ExclamationCircleSolid className="inline" />
-          Cart is not connected to your account
+          {t("layout.cartNotConnected")}
         </span>
 
         <span>·</span>

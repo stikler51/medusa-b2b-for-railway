@@ -4,6 +4,7 @@ import CompanyForm from "@/modules/checkout/components/company-form"
 import Divider from "@/modules/common/components/divider"
 import { B2BCart } from "@/types"
 import { Container, Heading } from "@medusajs/ui"
+import { t } from "@/lib/util/translate"
 
 const Company = ({ cart }: { cart: B2BCart }) => {
   return (
@@ -11,7 +12,7 @@ const Company = ({ cart }: { cart: B2BCart }) => {
       <div className="flex flex-col gap-y-2">
         <div className="flex flex-row items-center justify-between w-full">
           <Heading level="h2" className="text-xl">
-            Company
+            {t("checkout.company")}
           </Heading>
         </div>
         <Divider />

@@ -4,6 +4,7 @@ import Ideal from "@/modules/common/icons/ideal"
 import PayPal from "@/modules/common/icons/paypal"
 import { CreditCard } from "@medusajs/icons"
 import React from "react"
+import { t } from "@/lib/util/translate"
 
 /* Map of payment provider_id to their title and icon. Add in any payment providers you want to use. */
 export const paymentInfoMap: Record<
@@ -11,7 +12,7 @@ export const paymentInfoMap: Record<
   { title: string; icon: React.JSX.Element }
 > = {
   pp_stripe_stripe: {
-    title: "Credit card",
+    title: t("checkout.payment.creditCard"),
     icon: <CreditCard />,
   },
   "pp_stripe-ideal_stripe": {
@@ -27,7 +28,7 @@ export const paymentInfoMap: Record<
     icon: <PayPal />,
   },
   pp_system_default: {
-    title: "Pay by invoice",
+    title: t("checkout.payment.payByInvoice"),
     icon: <FilePlus />,
   },
   // Add more payment providers here
