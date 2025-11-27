@@ -85,7 +85,6 @@ export const useUpdateCompany = (
 
   return useMutation({
     mutationFn: (company: AdminUpdateCompany) => {
-      console.log("YO1");
       return sdk.client.fetch<AdminCompanyResponse>(`/admin/companies/${companyId}`, {
         method: "POST",
         headers: {
@@ -96,7 +95,6 @@ export const useUpdateCompany = (
     },
     ...options,
     onSuccess: (data: any, variables: any, context: any) => {
-      console.log("ONSUCCESS", data);
       queryClient.invalidateQueries({
         queryKey: companyQueryKey.lists(),
       });

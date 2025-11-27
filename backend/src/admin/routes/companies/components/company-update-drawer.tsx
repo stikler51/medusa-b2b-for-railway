@@ -19,12 +19,10 @@ export function CompanyUpdateDrawer({
   const handleSubmit = async (formData: AdminUpdateCompany) => {
     await mutateAsync(formData, {
       onSuccess: async () => {
-        console.log("SUCCESS");
         setOpen(false);
         toast.success(`Company ${formData.name} updated successfully`);
       },
       onError: (error) => {
-        console.log('ERROR', { error });
         toast.error("Failed to update company");
       },
     });

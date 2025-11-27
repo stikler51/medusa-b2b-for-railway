@@ -24,7 +24,6 @@ export default async function ProductPreview({
   })
 
   const inventoryQuantity = product.variants?.reduce((acc, variant) => {
-    console.log(variant)
     return acc + (variant?.inventory_quantity || 0)
   }, 0)
 
