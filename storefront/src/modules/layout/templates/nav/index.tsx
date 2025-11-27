@@ -29,7 +29,7 @@ export async function NavigationHeader() {
             >
               <h1 className="small:text-base text-sm font-medium flex items-center">
                 <LogoIcon className="inline mr-2" />
-                ХайТакСервис
+                {t("layout.storeName")}
               </h1>
             </LocalizedClientLink>
 

@@ -1,5 +1,5 @@
 "use server"
-
+import "server-only"
 import { sdk } from "@/lib/config"
 import medusaError from "@/lib/util/medusa-error"
 import { B2BCustomer } from "@/types/global"
@@ -63,13 +63,17 @@ export const updateCustomer = async (body: HttpTypes.StoreUpdateCustomer) => {
 }
 
 export async function signup(_currentState: unknown, formData: FormData) {
+  const registerAsCompany = !!formData.get("register_as_company")
   const password = formData.get("password") as string
+  let createdCompany
+  let createdEmployee
+
   const customerForm = {
     email: formData.get("email") as string,
     first_name: formData.get("first_name") as string,
     last_name: formData.get("last_name") as string,
     phone: formData.get("phone") as string,
-    company_name: formData.get("company_name") as string,
+    company_name: (formData.get("company_name") as string) ?? "-",
   }
 
   try {
@@ -93,28 +97,31 @@ export async function signup(_currentState: unknown, formData: FormData) {
 
     setAuthToken(loginToken as string)
 
-    const companyForm = {
-      name: formData.get("company_name") as string,
-      email: formData.get("email") as string,
-      phone: formData.get("company_phone") as string,
-      address: formData.get("company_address") as string,
-      city: formData.get("company_city") as string,
-      state: formData.get("company_state") as string,
-      zip: formData.get("company_zip") as string,
-      country: formData.get("company_country") as string,
-      currency_code: formData.get("currency_code") as string,
+    if (registerAsCompany) {
+      const companyForm = {
+        name: formData.get("company_name") as string,
+        email: formData.get("email") as string,
+        phone: formData.get("company_phone") as string,
+        address: formData.get("company_address") as string,
+        city: formData.get("company_city") as string,
+        zip: formData.get("company_zip") as string,
+        country: formData.get("company_country") as string,
+        currency_code: (formData.get("currency_code") as string) ?? "byn",
+        vat_number: formData.get("vat_number") as string,
+        okpo: formData.get("okpo") as string,
+      }
+
+      createdCompany = await createCompany(companyForm)
+
+      createdEmployee = await createEmployee({
+        company_id: createdCompany?.id as string,
+        customer_id: createdCustomer.id,
+        is_admin: true,
+        spending_limit: 0,
+      }).catch((err) => {
+        console.log("error creating employee", err)
+      })
     }
-
-    const createdCompany = await createCompany(companyForm)
-
-    const createdEmployee = await createEmployee({
-      company_id: createdCompany?.id as string,
-      customer_id: createdCustomer.id,
-      is_admin: true,
-      spending_limit: 0,
-    }).catch((err) => {
-      console.log("error creating employee", err)
-    })
 
     const cacheTag = await getCacheTag("customers")
     revalidateTag(cacheTag)

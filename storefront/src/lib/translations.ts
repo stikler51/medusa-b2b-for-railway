@@ -24,11 +24,11 @@ export const translations = {
     cartNotConnected: "Корзина не подключена к вашему аккаунту",
     connectCart: "Подключить корзину",
     connecting: "Подключение..",
-    poweredBy: "Работает на",
+    poweredBy: "Работает на честном слове",
     allRightsReserved: "Все права защищены.",
     categories: "Категории",
     collections: "Коллекции",
-    medusaStore: "Магазин Medusa",
+    storeName: "ХайТакСервис",
     github: "GitHub",
     documentation: "Документация",
     sourceCode: "Исходный код",
@@ -204,6 +204,9 @@ export const translations = {
     signIn: "Войти",
     signUp: "Зарегистрироваться",
     signOut: "Выйти",
+    registerAsCompany: "Зарегистрироваться как юр. лицо",
+    vatNumber: "УНП",
+    okpoNumber: "ОКПО",
 
     // Addresses
     addresses: "Адреса",

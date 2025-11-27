@@ -1,6 +1,4 @@
-"use client"
-
-import { currencySymbolMap } from "@/lib/constants"
+// "use client"
 import { signup } from "@/lib/data/customer"
 import { LOGIN_VIEW } from "@/modules/account/templates/login-template"
 import ErrorMessage from "@/modules/checkout/components/error-message"
@@ -24,10 +22,12 @@ interface FormData {
   password: string
   company_address: string
   company_city: string
-  company_state: string
   company_zip: string
   company_country: string
   currency_code: string
+  register_as_company: boolean
+  vat_number: string
+  okpo: string
 }
 
 const initialFormData: FormData = {
@@ -38,10 +38,12 @@ const initialFormData: FormData = {
   password: "",
   company_address: "",
   company_city: "",
-  company_state: "",
   company_zip: "",
-  company_country: "",
-  currency_code: "",
+  company_country: "Belarus",
+  currency_code: "byn",
+  register_as_company: false,
+  vat_number: "",
+  okpo: "",
 }
 
 const placeholder = ({
@@ -81,18 +83,25 @@ const Register = ({ setCurrentView, regions }: Props) => {
     }))
   }
 
-  const isValid =
+  const customerIsValid =
     termsAccepted &&
     !!formData.email &&
     !!formData.first_name &&
     !!formData.last_name &&
-    !!formData.company_name &&
-    !!formData.password &&
-    !!formData.company_address &&
-    !!formData.company_city &&
-    !!formData.company_zip &&
-    !!formData.company_country &&
-    !!formData.currency_code
+    !!formData.password
+
+  const companyIsValid = formData.register_as_company
+    ? !!formData.company_name &&
+      !!formData.company_address &&
+      !!formData.company_city &&
+      !!formData.company_zip &&
+      !!formData.company_country &&
+      !!formData.currency_code &&
+      !!formData.vat_number &&
+      !!formData.okpo
+    : true
+
+  const isValid = customerIsValid && companyIsValid
 
   const countryNames = regions
     .flatMap((region) =>
@@ -100,15 +109,13 @@ const Register = ({ setCurrentView, regions }: Props) => {
     )
     .filter((country) => country !== undefined)
 
-  const currencies = regions.map((region) => region.currency_code)
-
   return (
     <div
-      className="max-w-sm flex flex-col items-start gap-2 my-8"
+      className="max-w-sm w-full flex flex-col items-start gap-2 my-8"
       data-testid="register-page"
     >
       <Text className="text-4xl text-neutral-950 text-left mb-4">
-        {t("account.createAccountTitle")}
+        {t("account.register")}
       </Text>
       <form className="w-full flex flex-col" action={formAction}>
         <div className="flex flex-col w-full gap-y-4">
@@ -143,16 +150,7 @@ const Register = ({ setCurrentView, regions }: Props) => {
             value={formData.last_name}
             onChange={handleChange}
           />
-          <Input
-            label={t("account.companyName")}
-            name="company_name"
-            required
-            autoComplete="organization"
-            data-testid="company-name-input"
-            className="bg-white"
-            value={formData.company_name}
-            onChange={handleChange}
-          />
+
           <Input
             label={t("account.password")}
             name="password"
@@ -164,93 +162,116 @@ const Register = ({ setCurrentView, regions }: Props) => {
             value={formData.password}
             onChange={handleChange}
           />
-          <Input
-            label={t("account.companyAddress")}
-            name="company_address"
-            required
-            autoComplete="address"
-            data-testid="company-address-input"
-            className="bg-white"
-            value={formData.company_address}
-            onChange={handleChange}
-          />
-          <Input
-            label={t("account.companyCity")}
-            name="company_city"
-            required
-            autoComplete="city"
-            data-testid="company-city-input"
-            className="bg-white"
-            value={formData.company_city}
-            onChange={handleChange}
-          />
-          <Input
-            label={t("account.companyState")}
-            name="company_state"
-            autoComplete="state"
-            data-testid="company-state-input"
-            className="bg-white"
-            value={formData.company_state}
-            onChange={handleChange}
-          />
-          <Input
-            label={t("account.companyZip")}
-            name="company_zip"
-            required
-            autoComplete="postal-code"
-            data-testid="company-zip-input"
-            className="bg-white"
-            value={formData.company_zip}
-            onChange={handleChange}
-          />
-          <Select
-            name="company_country"
-            required
-            autoComplete="country"
-            data-testid="company-country-input"
-            value={formData.company_country}
-            onValueChange={handleSelectChange("company_country")}
-          >
-            <Select.Trigger className="rounded-full h-10 px-4">
-              <Select.Value
-                placeholder={placeholder({
-                  placeholder: t("account.selectCountry"),
-                  required: true,
-                })}
+
+          <div className="flex items-center gap-2">
+            <Checkbox
+              name="register_as_company"
+              id="register_as_company-checkbox"
+              data-testid="register_as_company-checkbox"
+              checked={formData.register_as_company}
+              onCheckedChange={(checked) => {
+                setFormData((prev) => ({
+                  ...prev,
+                  register_as_company: !!checked,
+                }))
+              }}
+            ></Checkbox>
+            <Label
+              id="register_as_company-label"
+              className="flex items-center text-ui-fg-base !text-xs hover:cursor-pointer !transform-none"
+              htmlFor="register_as_company-checkbox"
+              data-testid="register_as_company-label"
+            >
+              {t("account.registerAsCompany")}
+            </Label>
+          </div>
+
+          {formData.register_as_company && (
+            <>
+              <Input
+                label={t("account.companyName")}
+                name="company_name"
+                required
+                autoComplete="organization"
+                data-testid="company-name-input"
+                className="bg-white"
+                value={formData.company_name}
+                onChange={handleChange}
               />
-            </Select.Trigger>
-            <Select.Content>
-              {countryNames?.map((country) => (
-                <Select.Item key={country} value={country}>
-                  {country}
-                </Select.Item>
-              ))}
-            </Select.Content>
-          </Select>
-          <Select
-            name="currency_code"
-            required
-            autoComplete="currency"
-            data-testid="company-currency-input"
-            value={formData.currency_code}
-            onValueChange={handleSelectChange("currency_code")}
-          >
-            <Select.Trigger className="rounded-full h-10 px-4">
-              <Select.Value
-                placeholder={placeholder({
-                  placeholder: t("account.selectCurrency"),
-                  required: true,
-                })}
+              <Input
+                label={t("account.vatNumber")}
+                name="vat_number"
+                required
+                data-testid="company-vat-input"
+                className="bg-white"
+                value={formData.vat_number}
+                onChange={handleChange}
               />
-            </Select.Trigger>
-            <Select.Content>
-              {[...new Set(currencies)].map((currency) => (
-                <Select.Item key={currency} value={currency}>
-                  {currency.toUpperCase()} ({currencySymbolMap[currency]})
-                </Select.Item>
-              ))}
-            </Select.Content>
-          </Select>
+              <Input
+                label={t("account.okpoNumber")}
+                name="okpo"
+                required
+                data-testid="company-okpo-input"
+                className="bg-white"
+                value={formData.okpo}
+                onChange={handleChange}
+              />
+              <Input
+                label={t("account.companyAddress")}
+                name="company_address"
+                required
+                autoComplete="address"
+                data-testid="company-address-input"
+                className="bg-white"
+                value={formData.company_address}
+                onChange={handleChange}
+              />
+              <Input
+                label={t("account.companyCity")}
+                name="company_city"
+                required
+                autoComplete="city"
+                data-testid="company-city-input"
+                className="bg-white"
+                value={formData.company_city}
+                onChange={handleChange}
+              />
+              <Input
+                label={t("account.companyZip")}
+                name="company_zip"
+                required
+                autoComplete="postal-code"
+                data-testid="company-zip-input"
+                className="bg-white"
+                value={formData.company_zip}
+                onChange={handleChange}
+              />
+              <Select
+                name="company_country"
+                required
+                autoComplete="country"
+                data-testid="company-country-input"
+                value={formData.company_country}
+                onValueChange={handleSelectChange("company_country")}
+              >
+                <Select.Trigger className="rounded-full h-10 px-4">
+                  <Select.Value
+                    placeholder={placeholder({
+                      placeholder: t("account.selectCountry"),
+                      required: true,
+                    })}
+                  />
+                </Select.Trigger>
+                <Select.Content>
+                  {countryNames?.map((country) => (
+                    <Select.Item key={country} value={country}>
+                      {country}
+                    </Select.Item>
+                  ))}
+                </Select.Content>
+              </Select>
+            </>
+          )}
         </div>
         <div className="border-b border-neutral-200 my-6" />
         <ErrorMessage error={message} data-testid="register-error" />
