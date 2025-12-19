@@ -5,6 +5,7 @@ import SecurityCard from "@/modules/account/components/security-card"
 import { Heading } from "@medusajs/ui"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
+import { t } from "@/lib/util/translate"
 
 export const metadata: Metadata = {
   title: "Profile",
@@ -23,13 +24,13 @@ export default async function Profile() {
     <div className="w-full" data-testid="profile-page-wrapper">
       <div className="mb-8 flex flex-col gap-y-4">
         <Heading level="h2" className="text-lg text-neutral-950">
-          Details
+          {t("account.details")}
         </Heading>
         <ProfileCard customer={customer} />
       </div>
       <div className="mb-8 flex flex-col gap-y-4">
         <Heading level="h2" className="text-lg text-neutral-950">
-          Security
+          {t("account.security")}
         </Heading>
         <SecurityCard customer={customer} />
       </div>

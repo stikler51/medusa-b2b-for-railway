@@ -7,31 +7,6 @@ type ShippingDetailsProps = {
 }
 
 const ShippingDetails = ({ order }: ShippingDetailsProps) => {
-  // order.shipping_address = {
-  //   first_name: "Riqwan",
-  //   last_name: "Thamir",
-  //   address_1: "11c heidestrasse",
-  //   address_2: "Berlin - 10557",
-  //   country_code: "DE",
-  //   postal_code: "10557",
-  //   city: "Berlin",
-  //   company: "MedusaJS Aps",
-  // }
-  // order.billing_address = {
-  //   first_name: "Riqwan",
-  //   last_name: "Thamir",
-  //   address_1: "11c heidestrasse",
-  //   address_2: "Berlin - 10557",
-  //   country_code: "DE",
-  //   postal_code: "10557",
-  //   city: "Berlin",
-  // }
-  // order.shipping_methods = [
-  //   {
-  //     name: "Webshiper",
-  //     total: 1055,
-  //   },
-  // ]
   return (
     !!order.shipping_address && (
       <>

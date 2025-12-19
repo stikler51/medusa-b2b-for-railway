@@ -207,6 +207,22 @@ export const translations = {
     registerAsCompany: "Зарегистрироваться как юр. лицо",
     vatNumber: "УНП",
     okpoNumber: "ОКПО",
+    details: "Личные данные",
+    security: "Безопасность",
+    currentPassword: "Текущий пароль",
+    newPassword: "Новый пароль",
+    confirmPassword: "Подтвердите новый пароль",
+    passwordUpdated: "Пароль успешно обновлен",
+    passwordUpdateError: "Ошибка при обновлении пароля",
+    passwordMismatch: "Пароли не совпадают",
+    resetPassword: "Сменить пароль",
+    recoverPassword: "Восстановление пароля",
+    passwordResetDescriptionStep1:
+      "Забыли пароль? Нажмите, чтобы начать восстановление.",
+    passwordResetDescriptionStep2:
+      "Введите email, привязанный к вашему аккаунту.",
+    backToLogin: "Вернуться к форме входа",
+    
 
     // Addresses
     addresses: "Адреса",
@@ -458,6 +474,7 @@ export const translations = {
     viewAll: "Посмотреть всё",
     showMore: "Показать больше",
     showLess: "Показать меньше",
+    continue: "Продолжить",
   },
 
   // Form fields
