@@ -108,10 +108,10 @@ const CompanyCard = ({
           </div>
           <div className="flex flex-col gap-y-2">
             <Text className="font-medium text-neutral-950">
-              {t("account.addresses.address")}
+              {t("account.address")}
             </Text>
             <Input
-              label={t("account.addresses.address")}
+              label={t("account.address")}
               name="address"
               value={companyData.address || ""}
               onChange={(e) =>
@@ -121,10 +121,10 @@ const CompanyCard = ({
           </div>
           <div className="flex flex-col gap-y-2">
             <Text className="font-medium text-neutral-950">
-              {t("account.addresses.city")}
+              {t("account.city")}
             </Text>
             <Input
-              label={t("account.addresses.city")}
+              label={t("account.city")}
               name="city"
               value={companyData.city || ""}
               onChange={(e) =>
@@ -134,10 +134,10 @@ const CompanyCard = ({
           </div>
           <div className="flex flex-col gap-y-2">
             <Text className="font-medium text-neutral-950">
-              {t("account.addresses.postalCode")}
+              {t("account.postalCode")}
             </Text>
             <Input
-              label={t("account.addresses.postalCode")}
+              label={t("account.postalCode")}
               name="zip"
               value={companyData.zip || ""}
               onChange={(e) =>
@@ -202,7 +202,7 @@ const CompanyCard = ({
               {Object.values(ModuleCompanySpendingLimitResetFrequency).map(
                 (value) => (
                   <option key={value} value={value}>
-                    {value.charAt(0).toUpperCase() + value.slice(1)}
+                    {t(`account.frequencies.${value}`)}
                   </option>
                 )
               )}
@@ -281,7 +281,7 @@ const CompanyCard = ({
           </div>
           <div className="flex flex-col gap-y-2">
             <Text className="font-medium text-neutral-950">
-              {t("account.addresses.address")}
+              {t("account.address")}
             </Text>
             <Text className=" text-neutral-500">
               {company.address}, {company.city}, {company.zip}
@@ -297,11 +297,13 @@ const CompanyCard = ({
           </div>
           <div className="flex flex-col gap-y-2">
             <Text className="font-medium text-neutral-950">
-              {t("account.spendingLimitResetFrequency")}
+              {t("account.spending_limit_reset_frequency")}
             </Text>
             <Text className=" text-neutral-500">
-              {company.spending_limit_reset_frequency?.charAt(0).toUpperCase() +
-                company.spending_limit_reset_frequency?.slice(1)}
+              {company.spending_limit_reset_frequency &&
+                t(
+                  `account.frequencies.${company.spending_limit_reset_frequency}`
+                )}
             </Text>
           </div>
           <div className="flex flex-col gap-y-2">
