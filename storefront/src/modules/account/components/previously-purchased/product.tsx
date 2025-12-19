@@ -1,3 +1,4 @@
+import { t } from "@/lib/util/translate"
 import Button from "@/modules/common/components/button"
 import LocalizedClientLink from "@/modules/common/components/localized-client-link"
 import Thumbnail from "@/modules/products/components/thumbnail"
@@ -25,7 +26,7 @@ const PreviouslyPurchasedProduct = ({
       </div>
       <LocalizedClientLink href={`/products/${product_handle}`}>
         <Button variant="secondary" className="h-8 px-4 text-neutral-600">
-          Buy again
+          {t('account.buy_again')}
           <ArrowUturnLeft className="inline-block ml-1 " />
         </Button>
       </LocalizedClientLink>

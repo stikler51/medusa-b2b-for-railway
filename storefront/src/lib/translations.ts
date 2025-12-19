@@ -212,17 +212,19 @@ export const translations = {
     currentPassword: "Текущий пароль",
     newPassword: "Новый пароль",
     confirmPassword: "Подтвердите новый пароль",
-    passwordUpdated: "Пароль успешно обновлен",
+    passwordUpdated: "Пароль успешно обновлен.",
+    passwordResetEmailSent:
+      "Инструкции по смене пароля отправлены на ваш email.",
     passwordUpdateError: "Ошибка при обновлении пароля",
     passwordMismatch: "Пароли не совпадают",
     resetPassword: "Сменить пароль",
     recoverPassword: "Восстановление пароля",
     passwordResetDescriptionStep1:
-      "Забыли пароль? Нажмите, чтобы начать восстановление.",
+      "Вы уверены, что хотите сменить пароль? Вы выйдете из системы, и ссылка для смены пароля будет отправлена на ваш email.",
     passwordResetDescriptionStep2:
       "Введите email, привязанный к вашему аккаунту.",
     backToLogin: "Вернуться к форме входа",
-    
+    passwordForgot: "Забыли пароль? Восстановить",
 
     // Addresses
     addresses: "Адреса",
@@ -242,6 +244,7 @@ export const translations = {
     city: "Город",
     provinceState: "Область / Регион",
     remove: "Удалить",
+    buy_again: "Купить снова",
 
     // Orders
     orders: "Заказы",
@@ -266,6 +269,12 @@ export const translations = {
     companyName: "Название компании",
     companySettings: "Настройки компании",
     employees: "Сотрудники",
+    companyDetails: "Детали компании",
+    approvalSettings: "Настройки одобрения",
+    inviteEmployees: "Пригласить сотрудников",
+    unp: "УНП",
+    okpo: "ОКПО",
+    paymentDetails: "Реквизиты",
 
     // Approvals
     approvals: "Утверждения",
@@ -496,11 +505,15 @@ export const translations = {
   errors: {
     required: "Это поле обязательно",
     invalidEmail: "Неверный адрес email",
-    invalidPhone: "Неверный номер телефона",
-    passwordTooShort: "Пароль слишком короткий",
-    passwordsDoNotMatch: "Пароли не совпадают",
+    passwordTooShort: "Минимум 8 символов",
+    passwordUppercase: "Минимум одна заглавная буква",
+    passwordLowercase: "Минимум одна строчная буква",
+    passwordNumber: "Минимум одна цифра",
+    passwordSpecial: "Минимум один специальный символ",
+    passwordsMatch: "Пароли совпадают",
     somethingWentWrong: "Что-то пошло не так",
     tryAgain: "Попробуйте ещё раз",
+    "Error: Invalid email or password": "Неверный email или пароль",
 
     // Error pages
     notFound: {

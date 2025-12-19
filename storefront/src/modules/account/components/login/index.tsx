@@ -63,6 +63,14 @@ const Login = ({ setCurrentView }: Props) => {
           >
             {t("account.register")}
           </Button>
+          <Button
+            variant="transparent"
+            onClick={() => setCurrentView(LOGIN_VIEW.RESET_PASSWORD)}
+            className="w-full h-10"
+            data-testid="reset-password-button"
+          >
+            {t("account.passwordForgot")}
+          </Button>
         </div>
       </form>
     </div>

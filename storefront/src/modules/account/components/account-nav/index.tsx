@@ -64,21 +64,23 @@ const AccountNav = ({
                     </>
                   </LocalizedClientLink>
                 </li>
-                <li>
-                  <LocalizedClientLink
-                    href="/account/company"
-                    className="flex items-center justify-between py-4 border-b border-gray-200 px-8"
-                    data-testid="company-link"
-                  >
-                    <>
-                      <div className="flex items-center gap-x-2">
-                        <BuildingStorefront width={20} />
-                        <span>{t("account.company")}</span>
-                      </div>
-                      <ChevronDown className="transform -rotate-90" />
-                    </>
-                  </LocalizedClientLink>
-                </li>
+                {customer?.employee && (
+                  <li>
+                    <LocalizedClientLink
+                      href="/account/company"
+                      className="flex items-center justify-between py-4 border-b border-gray-200 px-8"
+                      data-testid="company-link"
+                    >
+                      <>
+                        <div className="flex items-center gap-x-2">
+                          <BuildingStorefront width={20} />
+                          <span>{t("account.company")}</span>
+                        </div>
+                        <ChevronDown className="transform -rotate-90" />
+                      </>
+                    </LocalizedClientLink>
+                  </li>
+                )}
                 <li>
                   <LocalizedClientLink
                     href="/account/addresses"
@@ -122,7 +124,7 @@ const AccountNav = ({
                     </LocalizedClientLink>
                   </li>
                 )}
-                <li>
+                {/* <li>
                   <LocalizedClientLink
                     href="/account/quotes"
                     className="flex items-center justify-between py-4 border-b border-gray-200 px-8"
@@ -134,7 +136,7 @@ const AccountNav = ({
                     </div>
                     <ChevronDown className="transform -rotate-90" />
                   </LocalizedClientLink>
-                </li>
+                </li> */}
                 <li>
                   <button
                     type="button"
@@ -175,15 +177,17 @@ const AccountNav = ({
                 {t("account.profile")}
               </AccountNavLink>
             </li>
-            <li>
-              <AccountNavLink
-                href="/account/company"
-                route={route!}
-                data-testid="company-link"
-              >
-                {t("account.company")}
-              </AccountNavLink>
-            </li>
+            {customer?.employee && (
+              <li>
+                <AccountNavLink
+                  href="/account/company"
+                  route={route!}
+                  data-testid="company-link"
+                >
+                  {t("account.company")}
+                </AccountNavLink>
+              </li>
+            )}
             <li>
               <AccountNavLink
                 href="/account/addresses"
@@ -218,7 +222,7 @@ const AccountNav = ({
                 </AccountNavLink>
               </li>
             )}
-            <li>
+            {/* <li>
               <AccountNavLink
                 href="/account/quotes"
                 route={route!}
@@ -226,7 +230,7 @@ const AccountNav = ({
               >
                 {t("account.quotes")}
               </AccountNavLink>
-            </li>
+            </li> */}
             <li className="text-neutral-400 hover:text-neutral-950">
               <button
                 type="button"

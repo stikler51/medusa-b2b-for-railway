@@ -8,10 +8,14 @@ import Image from "next/image"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import { t } from "@/lib/util/translate"
+import NewPassword from "../components/new-password"
+import ResetPassword from "../components/reset-password"
 
 export enum LOGIN_VIEW {
   LOG_IN = "log-in",
   REGISTER = "register",
+  NEW_PASSWORD = "new-password",
+  RESET_PASSWORD = "reset-password",
 }
 
 const LoginTemplate = ({ regions }: { regions: HttpTypes.StoreRegion[] }) => {
@@ -28,15 +32,10 @@ const LoginTemplate = ({ regions }: { regions: HttpTypes.StoreRegion[] }) => {
   })
 
   useEffect(() => {
-    if (searchParams.has("view")) {
-      const newParams = new URLSearchParams(searchParams)
-      newParams.delete("view")
-      router.replace(
-        `${route}${newParams.toString() ? `?${newParams.toString()}` : ""}`,
-        { scroll: false }
-      )
+    if (!searchParams.has("view")) {
+      setCurrentView(LOGIN_VIEW.LOG_IN)
     }
-  }, [searchParams, route, router])
+  }, [searchParams])
 
   useEffect(() => {
     const image = new window.Image()
@@ -48,16 +47,23 @@ const LoginTemplate = ({ regions }: { regions: HttpTypes.StoreRegion[] }) => {
 
   const updateView = (view: LOGIN_VIEW) => {
     setCurrentView(view)
-    router.push(`/account?view=${view}`)
+    router.replace(`/account?view=${view}`)
   }
 
   return (
     <div className="grid grid-cols-1 small:grid-cols-2 gap-2 m-2 min-h-[80vh]">
       <div className="flex justify-center items-center bg-neutral-100 p-6 small:p-0 h-full">
-        {currentView === LOGIN_VIEW.LOG_IN ? (
+        {currentView === LOGIN_VIEW.LOG_IN && (
           <Login setCurrentView={updateView} />
-        ) : (
+        )}
+        {currentView === LOGIN_VIEW.REGISTER && (
           <Register setCurrentView={updateView} regions={regions} />
+        )}
+        {currentView === LOGIN_VIEW.NEW_PASSWORD && (
+          <NewPassword setCurrentView={updateView} />
+        )}
+        {currentView === LOGIN_VIEW.RESET_PASSWORD && (
+          <ResetPassword setCurrentView={updateView} />
         )}
       </div>
 

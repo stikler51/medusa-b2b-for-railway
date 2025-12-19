@@ -210,9 +210,11 @@ const CompanyCard = ({
           </div>
 
           <div className="flex flex-col gap-y-2">
-            <Text className="font-medium text-neutral-950">УНП</Text>
+            <Text className="font-medium text-neutral-950">
+              {t("account.unp")}
+            </Text>
             <Input
-              label="УНП"
+              label={t("account.unp")}
               name="vat_number"
               value={companyData.vat_number || ""}
               onChange={(e) =>
@@ -221,9 +223,11 @@ const CompanyCard = ({
             />
           </div>
           <div className="flex flex-col gap-y-2">
-            <Text className="font-medium text-neutral-950">ОКПО</Text>
+            <Text className="font-medium text-neutral-950">
+              {t("account.okpo")}
+            </Text>
             <Input
-              label="ОКПО"
+              label={t("account.okpo")}
               name="okpo"
               value={companyData.okpo || ""}
               onChange={(e) =>
@@ -232,9 +236,11 @@ const CompanyCard = ({
             />
           </div>
           <div className="flex flex-col gap-y-2">
-            <Text className="font-medium text-neutral-950">Реквизиты</Text>
+            <Text className="font-medium text-neutral-950">
+              {t("account.paymentDetails")}
+            </Text>
             <Input
-              label="Реквизиты"
+              label={t("account.paymentDetails")}
               name="payment_details"
               value={companyData.payment_details || ""}
               onChange={(e) =>

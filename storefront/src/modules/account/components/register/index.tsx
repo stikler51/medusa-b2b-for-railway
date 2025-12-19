@@ -6,8 +6,10 @@ import { SubmitButton } from "@/modules/checkout/components/submit-button"
 import Input from "@/modules/common/components/input"
 import { HttpTypes } from "@medusajs/types"
 import { Checkbox, Label, Select, Text } from "@medusajs/ui"
-import { ChangeEvent, useActionState, useState } from "react"
+import { ChangeEvent, useActionState, useMemo, useState } from "react"
 import { t } from "@/lib/util/translate"
+import { passwordSchema } from "@/lib/util/password-schema"
+import { ValidationRule } from "../password-validation-rule"
 
 type Props = {
   setCurrentView: (view: LOGIN_VIEW) => void
@@ -83,12 +85,33 @@ const Register = ({ setCurrentView, regions }: Props) => {
     }))
   }
 
+  const validations = useMemo(() => {
+    const result = passwordSchema.safeParse(formData.password)
+    const errors = result.success
+      ? []
+      : result.error.errors.map((e) => e.message)
+
+    return {
+      length: formData.password.length >= 8,
+      uppercase:
+        !errors.includes("passwordUppercase") && formData.password.length > 0,
+      lowercase:
+        !errors.includes("passwordLowercase") && formData.password.length > 0,
+      number:
+        !errors.includes("passwordNumber") && formData.password.length > 0,
+      special:
+        !errors.includes("passwordSpecial") && formData.password.length > 0,
+    }
+  }, [formData.password])
+
+  const passwordIsValid = Object.values(validations).every(Boolean)
+
   const customerIsValid =
     termsAccepted &&
     !!formData.email &&
     !!formData.first_name &&
     !!formData.last_name &&
-    !!formData.password
+    passwordIsValid
 
   const companyIsValid = formData.register_as_company
     ? !!formData.company_name &&
@@ -162,6 +185,29 @@ const Register = ({ setCurrentView, regions }: Props) => {
             value={formData.password}
             onChange={handleChange}
           />
+
+          <div className="flex flex-col gap-y-1 my-2">
+            <ValidationRule
+              label={t("errors.passwordTooShort")}
+              isMet={validations.length}
+            />
+            <ValidationRule
+              label={t("errors.passwordUppercase")}
+              isMet={validations.uppercase}
+            />
+            <ValidationRule
+              label={t("errors.passwordLowercase")}
+              isMet={validations.lowercase}
+            />
+            <ValidationRule
+              label={t("errors.passwordNumber")}
+              isMet={validations.number}
+            />
+            <ValidationRule
+              label={t("errors.passwordSpecial")}
+              isMet={validations.special}
+            />
+          </div>
 
           <div className="flex items-center gap-2">
             <Checkbox

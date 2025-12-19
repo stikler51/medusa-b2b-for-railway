@@ -18,6 +18,7 @@ import {
   removeCartId,
   setAuthToken,
 } from "./cookies"
+import { resetPasswordSchema, passwordSchema } from "@/lib/util/password-schema"
 
 export const retrieveCustomer = async (): Promise<B2BCustomer | null> => {
   const authHeaders = await getAuthHeaders()
@@ -65,6 +66,12 @@ export const updateCustomer = async (body: HttpTypes.StoreUpdateCustomer) => {
 export async function signup(_currentState: unknown, formData: FormData) {
   const registerAsCompany = !!formData.get("register_as_company")
   const password = formData.get("password") as string
+
+  const validation = passwordSchema.safeParse(password)
+  if (!validation.success) {
+    return validation.error.errors[0].message
+  }
+
   let createdCompany
   let createdEmployee
 
@@ -311,5 +318,58 @@ export const updateCustomerAddress = async (
     })
     .catch((err) => {
       return { success: false, error: err.toString() }
+    })
+}
+
+export const resetCustomerPassword = async (
+  emailOrState: string | Record<string, unknown> | null,
+  formData?: FormData
+): Promise<any> => {
+  const email =
+    formData instanceof FormData
+      ? (formData.get("email") as string)
+      : typeof emailOrState === "string"
+      ? emailOrState
+      : ""
+
+  return sdk.auth
+    .resetPassword("customer", "emailpass", {
+      identifier: email,
+    })
+    .then(() => {
+      return { success: true, error: null }
+    })
+    .catch((err) => {
+      return { success: false, error: err.toString() }
+    })
+}
+
+export const setCustomerPassword = async (
+  currentState: Record<string, unknown>,
+  formData: FormData
+): Promise<any> => {
+  const payload = Object.fromEntries(formData)
+  const validation = resetPasswordSchema.safeParse(payload)
+
+  if (!validation.success) {
+    const error = validation.error.errors[0].message
+    return { success: false, error }
+  }
+
+  return sdk.auth
+    .updateProvider(
+      "customer",
+      "emailpass",
+      {
+        email: formData.get("email") as string,
+        password: formData.get("password") as string,
+      },
+      formData.get("token") as string
+    )
+    .then(() => {
+      return { success: true, error: null }
+    })
+    .catch((error) => {
+      return { success: false, error: error?.toString() }
     })
 }
